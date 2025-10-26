@@ -106,6 +106,28 @@
   font-weight: bold;
   transition: all 0.3s ease;
   flex-shrink: 0;
+  position: relative;
+}
+
+.subscribe-btn::before {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: #ffffff;
+  border: 2px solid #45212B;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.subscribe-bullet {
+  position: relative;
+  z-index: 1;
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
 }
 
 .footer-bottom-bar { background: #45212B; margin-top: 3rem; }
@@ -223,7 +245,7 @@
     width: 100%;
     max-width: 300px;
     height: 45px;
-    margin: 0 auto;
+    margin: 0;
     margin-top: 1rem;
     margin-bottom: -1.5rem;
     display: flex;
@@ -263,6 +285,17 @@
     justify-content: center;
     flex-shrink: 0;
     transition: background-color 0.3s ease;
+    position: relative;
+  }
+  
+  .subscribe-btn::before {
+    width: 23px;
+    height: 23px;
+  }
+  
+  .subscribe-bullet {
+    width: 16px;
+    height: 16px;
   }
 
   .subscribe-btn:hover {

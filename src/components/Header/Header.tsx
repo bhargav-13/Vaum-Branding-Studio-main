@@ -12,8 +12,7 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(false)
   }
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault()
+  const handleLinkClick = () => {
     closeMobileMenu()
   }
 
@@ -54,7 +53,7 @@ const Header: React.FC = () => {
 
         {/* Desktop Contact Button */}
         <div className="header-actions">
-          <a href="/contact" className="contact-btn" onClick={handleLinkClick}>
+          <a href="/#contact" className="contact-btn" onClick={handleLinkClick}>
             Contact Me
           </a>
         </div>
@@ -92,7 +91,7 @@ const Header: React.FC = () => {
           <a href="/testimonials" className="mobile-nav-link" onClick={handleLinkClick}>
             Testimonials
           </a>
-          <a href="/contact" className="mobile-nav-link mobile-contact-btn" onClick={handleLinkClick}>
+          <a href="/#contact" className="mobile-nav-link mobile-contact-btn" onClick={handleLinkClick}>
             Contact Me
           </a>
         </nav>
