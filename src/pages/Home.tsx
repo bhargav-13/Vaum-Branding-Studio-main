@@ -116,6 +116,41 @@ const Home: React.FC = () => {
     io.observe(section)
     return () => io.disconnect()
   }, [])
+
+  // Badge animation trigger when about section comes into view
+  useEffect(() => {
+    const section = document.querySelector('.about-section')
+    const badges = Array.from(document.querySelectorAll<HTMLElement>('.about-badge'))
+    if (!section || badges.length === 0) return
+
+    // Ensure badges start in paused state
+    badges.forEach((badge) => {
+      badge.style.animationPlayState = 'paused'
+    })
+
+    let hasAnimated = false
+    const triggerBadgeAnimation = () => {
+      if (hasAnimated) return
+      hasAnimated = true
+
+      // Start all badge animations
+      badges.forEach((badge) => {
+        badge.style.animationPlayState = 'running'
+      })
+    }
+
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          triggerBadgeAnimation()
+          io.disconnect()
+        }
+      })
+    }, { threshold: 0.3 })
+
+    io.observe(section)
+    return () => io.disconnect()
+  }, [])
   return (
     <>
       <div className="home">

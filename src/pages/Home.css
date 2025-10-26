@@ -1967,45 +1967,26 @@
   align-content: center;        /* vertically center grid content */
 }
 
-/* Removed left image column */
-/* Decorative circle on the left */
+/* Simple circle on the left */
 .about-circle {
-  width: 440px;
-  height: 440px;
+  width: 460px;
+  height: 460px;
   border-radius: 50%;
   background: linear-gradient(135deg, #EDE8D0 0%, #F5F0E8 100%);
-  overflow: hidden;          /* so an image dropped inside will be clipped to a circle */
   position: relative;
   box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-  display: flex;
-  align-items: center;
   margin-left: -35px;
-  justify-content: center;
+  overflow: visible; /* Allow image to extend outside circle */
 }
 
-/* Inner oval for the person's image */
-.about-circle::before {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 320px;
-  height: 380px;
-  background: #EDE8D0;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  transform: translate(-50%, -50%);
-  z-index: 1;
-}
-
-/* If you place an <img> inside .about-circle later, it will auto-fit */
+/* Image positioned to extend above the circle */
 .about-circle img {
-  width: 320px;
-  height: 380px;
-  object-fit: cover;
-  object-position: center;
-  display: block;
-  border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-  position: relative;
+  position: absolute;
+  bottom: 5%;
+  left: 68.2%;
+  transform: translateX(-50%);
+  width: 850px;
+  height: auto;
   z-index: 2;
 }
 
@@ -2014,64 +1995,88 @@
   position: absolute;
   background-color: #45212B;
   color: white;
-  padding: 0.5rem 1rem;
+  padding: 0.3rem 0.8rem;
   border-radius: 20px;
   font-family: 'Poppins', sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
   white-space: nowrap;
   box-shadow: 0 4px 12px rgba(69, 33, 43, 0.3);
+  border: 2.5px solid white;
   z-index: 3;
   opacity: 0;
   animation: badgeFall 1.2s ease-out forwards;
+  animation-play-state: paused;
 }
 
-/* Badge positions around the circle */
+/* Specific badges with #45212B background (dark brown) */
+.about-badge-1, /* Website Design */
+.about-badge-4, /* Brochure Design */
+.about-badge-7, /* Wireframe Design */
+.about-badge-3 { /* UI/UX Design */
+  background-color: #45212B;
+  color: white;
+}
+
+/* Other badges with #EDE8D0 background (cream) */
+.about-badge-2, /* Application Design */
+.about-badge-5, /* Prototype */
+.about-badge-6 { /* Logo Design */
+  background-color: #EDE8D0;
+  color: #45212B;
+}
+
+/* Badge positions around the circle - matching the exact image layout */
 .about-badge-1 { 
-  top: 10%; 
-  left: -15%; 
-  animation-delay: 0.1s;
+  top: 63.5%; 
+  right: 33%; 
+  animation-delay: 0.7s; /* Website Design - Last */
 }
 .about-badge-2 { 
-  top: 25%; 
-  left: -20%; 
-  animation-delay: 0.2s;
+  bottom: 21.5%; 
+  left: 21%; 
+  animation-delay: 0.5s; /* Application Design - 5th */
 }
 .about-badge-3 { 
-  top: 45%; 
-  left: -15%; 
-  animation-delay: 0.3s;
+  bottom: 12.8%;
+  left: 80px; 
+  animation-delay: 0.1s; /* UI/UX Design - 2nd */
 }
 .about-badge-4 { 
-  bottom: 35%; 
-  left: -10%; 
-  animation-delay: 0.4s;
+  bottom: 22%; 
+  left: 55%;
+  animation-delay: 0.6s; /* Brochure Design - 6th */
 }
 .about-badge-5 { 
-  bottom: 20%; 
-  right: -15%; 
-  animation-delay: 0.5s;
+  bottom: 11.5%; 
+  right: 36.5%; 
+  animation-delay: 0.3s; /* Prototype - 4th */
 }
 .about-badge-6 { 
-  top: 35%; 
-  right: -20%; 
-  animation-delay: 0.6s;
+  bottom: 13%; 
+  right: 12%; 
+  animation-delay: 0.2s; /* Logo Design - 3rd */
 }
 .about-badge-7 { 
-  top: 15%; 
-  right: -10%; 
-  animation-delay: 0.7s;
+  bottom: 2%;
+  left: 34.5%;
+  animation-delay: 0s; /* Wireframe Design - 1st */
+  transform: rotate(4deg);
 }
 
-/* Falling animation for badges */
+/* Falling animation for badges - from top of circle */
 @keyframes badgeFall {
   0% {
     opacity: 0;
-    transform: translateY(-30px) scale(0.8);
+    transform: translateY(-50px) scale(0.5);
   }
-  50% {
-    opacity: 0.8;
-    transform: translateY(10px) scale(1.05);
+  30% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(0.8);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(5px) scale(1.1);
   }
   100% {
     opacity: 1;
@@ -2079,11 +2084,149 @@
   }
 }
 
-/* Removed photo wrapper */
+/* Specific animation for badge-3 to preserve rotation */
+.about-badge-3 {
+  animation: badgeFallRotated 1.2s ease-out forwards;
+}
 
-/* Removed circular backdrop */
+/* Specific animation for badge-5 to preserve rotation */
+.about-badge-5 {
+  animation: badgeFallRotated5 1.2s ease-out forwards;
+}
 
-/* Removed photo */
+/* Specific animation for badge-6 to preserve rotation */
+.about-badge-6 {
+  animation: badgeFallRotated6 1.2s ease-out forwards;
+}
+
+/* Specific animation for badge-2 to preserve rotation */
+.about-badge-2 {
+  animation: badgeFallRotated2 1.2s ease-out forwards;
+}
+
+/* Specific animation for badge-4 to preserve rotation */
+.about-badge-4 {
+  animation: badgeFallRotated4 1.2s ease-out forwards;
+}
+
+/* Specific animation for badge-1 to preserve rotation */
+.about-badge-1 {
+  animation: badgeFallRotated1 1.2s ease-out forwards;
+}
+
+@keyframes badgeFallRotated {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5) rotate(15deg);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(0.8) rotate(15deg);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(5px) scale(1.1) rotate(15deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(15deg);
+  }
+}
+
+@keyframes badgeFallRotated5 {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5) rotate(5deg);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(0.8) rotate(5deg);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(5px) scale(1.1) rotate(5deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(5deg);
+  }
+}
+
+@keyframes badgeFallRotated6 {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5) rotate(-20deg);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(0.8) rotate(-20deg);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(5px) scale(1.1) rotate(-20deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(-30deg);
+  }
+}
+
+@keyframes badgeFallRotated2 {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5) rotate(2deg);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(0.8) rotate(2deg);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(5px) scale(1.1) rotate(2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(6.5deg);
+  }
+}
+
+@keyframes badgeFallRotated4 {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5) rotate(-2deg);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(0.8) rotate(-2deg);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(5px) scale(1.1) rotate(-2deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(-14deg);
+  }
+}
+
+@keyframes badgeFallRotated1 {
+  0% {
+    opacity: 0;
+    transform: translateY(-50px) scale(0.5) rotate(3deg);
+  }
+  30% {
+    opacity: 0.7;
+    transform: translateY(-10px) scale(0.8) rotate(3deg);
+  }
+  60% {
+    opacity: 0.9;
+    transform: translateY(5px) scale(1.1) rotate(3deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1) rotate(2deg);
+  }
+}
 
 .about-tags {
   list-style: none;
@@ -2242,29 +2385,56 @@
 @media (max-width: 1100px) {
   .about-container { grid-template-columns: 1fr; }
   .about-circle { 
-    width: 300px; 
-    height: 300px; 
+    width: 320px; 
+    height: 320px; 
     margin: 0 auto 1.5rem; 
   }
   
-  .about-circle::before {
-    width: 220px;
-    height: 260px;
-  }
-  
   .about-circle img {
-    width: 220px;
-    height: 260px;
+    width: 590px;
+    bottom: 5%;
+    left: 68.2%;
   }
-  .about-right { text-align: center; }
-  .about-stats { justify-content: center; }
-  .about-cta { justify-content: center; }
   
   /* Adjust badge positioning for tablet */
   .about-badge {
     font-size: 0.7rem;
     padding: 0.4rem 0.8rem;
+    border: 2.5px solid white;
   }
+  
+  /* Tablet badge positions - scaled down proportionally */
+  .about-badge-1 { 
+    top: 63.5%; 
+    right: 33%; 
+  }
+  .about-badge-2 { 
+    bottom: 21.5%; 
+    left: 21%; 
+  }
+  .about-badge-3 { 
+    bottom: 12.8%;
+    left: 80px; 
+  }
+  .about-badge-4 { 
+    bottom: 22%; 
+    left: 55%;
+  }
+  .about-badge-5 { 
+    bottom: 11.5%; 
+    right: 36.5%; 
+  }
+  .about-badge-6 { 
+    bottom: 13%; 
+    right: 12%; 
+  }
+  .about-badge-7 { 
+    bottom: 2%;
+    left: 34.5%;
+  }
+  .about-right { text-align: center; }
+  .about-stats { justify-content: center; }
+  .about-cta { justify-content: center; }
 }
 
 @media (max-width: 768px) {
@@ -2272,9 +2442,41 @@
   .about-title { font-size: 2.2rem; }
   .about-stat .stat-number { font-size: 2.4rem; }
   
-  /* Hide badges on mobile for cleaner look */
+  /* Mobile badge styling and positioning */
   .about-badge {
-    display: none;
+    font-size: 0.5rem;
+    padding: 0.3rem 0.6rem;
+    border: 2px solid white;
+  }
+  
+  /* Mobile badge positions - scaled down for smaller screen */
+  .about-badge-1 { 
+    top: 63.5%; 
+    right: 33%; 
+  }
+  .about-badge-2 { 
+    bottom: 21.5%; 
+    left: 21%; 
+  }
+  .about-badge-3 { 
+    bottom: 12.8%;
+    left: 60px; 
+  }
+  .about-badge-4 { 
+    bottom: 22%; 
+    left: 55%;
+  }
+  .about-badge-5 { 
+    bottom: 11.5%; 
+    right: 36.5%; 
+  }
+  .about-badge-6 { 
+    bottom: 13%; 
+    right: 12%; 
+  }
+  .about-badge-7 { 
+    bottom: 2%;
+    left: 34.5%;
   }
 }
 
@@ -2293,9 +2495,52 @@
   }
   
   .about-circle {
-    width: 230px;
-    height: 230px;
+    width: 250px;
+    height: 250px;
     margin: 0 auto 1rem;
+  }
+  
+  .about-circle img {
+    width: 460px;
+    bottom: 5%;
+    left: 68.2%;
+  }
+  
+  /* Small mobile badge styling */
+  .about-badge {
+    font-size: 0.4rem;
+    padding: 0.2rem 0.5rem;
+    border: 1.5px solid white;
+  }
+  
+  /* Small mobile badge positions */
+  .about-badge-1 { 
+    top: 64%; 
+    right: 33%; 
+  }
+  .about-badge-2 { 
+    bottom: 21%; 
+    left: 23%; 
+  }
+  .about-badge-3 { 
+    bottom: 12.2%;
+    left: 18%; 
+  }
+  .about-badge-4 { 
+    bottom: 22%; 
+    left: 56%;
+  }
+  .about-badge-5 { 
+    bottom: 11%; 
+    right: 37.5%; 
+  }
+  .about-badge-6 { 
+    bottom: 13%; 
+    right: 13%; 
+  }
+  .about-badge-7 { 
+    bottom: 2%;
+    left: 34.5%;
   }
   
   .about-right {
