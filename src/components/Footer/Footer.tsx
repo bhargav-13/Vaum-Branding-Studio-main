@@ -49,10 +49,10 @@ const Footer: React.FC = () => {
               <h4 className="col-title">Navigation</h4>
               <ul className="col-list">
                 <li><a href="/">Home</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#blogs">Blogs</a></li>
+                <li><a href="/services">Services</a></li>
+                <li><a href="/about">About</a></li>
+                <li><a href="/projects">Projects</a></li>
+                <li><a href="/blogs">Blogs</a></li>
               </ul>
             </div>
             <div className="footer-col">
@@ -66,7 +66,9 @@ const Footer: React.FC = () => {
               <h4 className="col-title">Get the latest information</h4>
               <form className="subscribe" onSubmit={(e) => e.preventDefault()}>
                 <input className="subscribe-input" type="email" placeholder="Email address" aria-label="Email address" />
-                <button className="subscribe-btn" type="submit" aria-label="Submit">▶</button>
+                <button className="subscribe-btn" type="submit" aria-label="Submit">
+                  <img src="/bullet-point.gif" alt="Submit" className="subscribe-bullet" />
+                </button>
               </form>
             </div>
           </div>

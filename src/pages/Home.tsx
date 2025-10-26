@@ -163,16 +163,16 @@ const Home: React.FC = () => {
                       <path id="circle-path" d="M 50,50 m -35,0 a 35,35 0 1,1 70,0 a 35,35 0 1,1 -70,0" />
                     </defs>
                     <text className="hire-text-curved">
-                      <textPath href="#circle-path" startOffset="0%">HIRE ME •</textPath>
+                      <textPath href="#circle-path" startOffset="0%">HIRE ME <tspan className="bullet-large">•</tspan></textPath>
                     </text>
                     <text className="hire-text-curved">
-                      <textPath href="#circle-path" startOffset="25%">HIRE ME •</textPath>
+                      <textPath href="#circle-path" startOffset="25%">HIRE ME <tspan className="bullet-large">•</tspan></textPath>
                     </text>
                     <text className="hire-text-curved">
-                      <textPath href="#circle-path" startOffset="50%">HIRE ME •</textPath>
+                      <textPath href="#circle-path" startOffset="50%">HIRE ME <tspan className="bullet-large">•</tspan></textPath>
                     </text>
                     <text className="hire-text-curved">
-                      <textPath href="#circle-path" startOffset="75%">HIRE ME •</textPath>
+                      <textPath href="#circle-path" startOffset="75%">HIRE ME <tspan className="bullet-large">•</tspan></textPath>
                     </text>
                   </svg>
                   <div className="hire-center"></div>
@@ -324,7 +324,7 @@ const Home: React.FC = () => {
             <button className="btn-view-all">
               <span>View All Services</span>
               <div className="btn-view-all-icon">
-                <span>▶</span>
+                <img src="/bullet-point.gif" alt="View All" className="btn-bullet-icon" />
               </div>
             </button>
           </div>
@@ -333,7 +333,7 @@ const Home: React.FC = () => {
             <div className="service-card">
               <div className="service-card-icon">
                 <div className="icon-circle">
-                  <img src="/computer 1.jpg" alt="Computer" />
+                  <img src="/computer (1).gif" alt="Computer" />
                 </div>
               </div>
               <h3 className="service-card-title">UI/UX Design</h3>
@@ -348,7 +348,7 @@ const Home: React.FC = () => {
             <div className="service-card">
               <div className="service-card-icon">
                 <div className="icon-circle">
-                  <img src="/vector 1.jpg" alt="Vector" />
+                  <img src="/vector (1).gif" alt="Vector" />
                 </div>
               </div>
               <h3 className="service-card-title">Application Design</h3>
@@ -363,7 +363,7 @@ const Home: React.FC = () => {
             <div className="service-card">
               <div className="service-card-icon">
                 <div className="icon-circle">
-                  <img src="/web-design 1.jpg" alt="Web Design" />
+                  <img src="/web-design (1).gif" alt="Web Design" />
                 </div>
               </div>
               <h3 className="service-card-title">Website Design</h3>
@@ -421,7 +421,9 @@ const Home: React.FC = () => {
             <div className="about-cta">
               <button className="btn-about-services">
                 <span>View All Services</span>
-                <span className="btn-play">▶</span>
+                <div className="btn-about-icon">
+                  <img src="/bullet-point.gif" alt="View All" className="btn-about-bullet" />
+                </div>
               </button>
               <span className="about-signature">Vachika Bhanderi</span>
             </div>
@@ -500,7 +502,7 @@ const Home: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section className="contact-cta-section">
+      <section id="contact" className="contact-cta-section">
         <div className="contact-cta-container">
           <div className="contact-cta-left">
             <div className="contact-cta-subtitle">
@@ -528,7 +530,7 @@ const Home: React.FC = () => {
                     <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
                   </svg>
                 </span>
-                <a href="https://vaum-studio.netlify.app/" target="_blank" rel="noreferrer">vaum-studio.netlify.app/</a>
+                <a href="https://www.vaum.studio" rel="noreferrer">www.vaum.studio</a>
               </li>
               <li>
                 <span className="contact-cta-icon">
@@ -599,7 +601,9 @@ const Home: React.FC = () => {
           <div className="contact-cta-actions">
             <button className="btn-submit-contact" type="button">
               <span>Submit</span>
-              <span className="btn-submit-icon">▶</span>
+              <div className="btn-submit-icon">
+                <img src="/bullet-point.gif" alt="Submit" className="btn-submit-bullet" />
+              </div>
             </button>
           </div>
         </div>
@@ -678,18 +682,14 @@ const Home: React.FC = () => {
               aria-label="Previous testimonial"
               onClick={prevTestimonial}
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="15,18 9,12 15,6"></polyline>
-              </svg>
+              <img src="/bullet-point.gif" alt="Previous" className="nav-bullet" />
             </button>
             <button 
               className="nav-btn nav-next" 
               aria-label="Next testimonial"
               onClick={nextTestimonial}
             >
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <polyline points="9,18 15,12 9,6"></polyline>
-              </svg>
+              <img src="/bullet-point.gif" alt="Next" className="nav-bullet" />
             </button>
           </div>
         </div>

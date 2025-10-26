@@ -316,14 +316,15 @@
 }
 
 /* Rotating HIRE ME Circle */
-.hire-circle {
-  position: absolute;
-  top: 80px;
-  left: 550px;
-  width: 100px;
-  height: 100px;
-  background-color: #EDE8D0;
-  border-radius: 50%;
+  .hire-circle {
+    position: absolute;
+    top: 80px;
+    left: 550px;
+    width: 95px;
+    height: 95px;
+    background-color: #EDE8D0;
+    border-radius: 50%;
+    border: 3px solid white;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -333,8 +334,8 @@
 
 .hire-center {
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 35px;
+  height: 35px;
   background-color: #45212B;
   border-radius: 50%;
   z-index: 4;
@@ -357,9 +358,13 @@
   letter-spacing: 0.5px;
 }
 
+.bullet-large {
+  font-size: 1.6em;
+}
+
 .hire-dot {
   position: absolute;
-  width: 4px;
+  width: 10px;
   height: 4px;
   background-color: #45212B;
   border-radius: 50%;
@@ -521,6 +526,10 @@
 }
 
 @media (max-width: 768px) {
+  .hire-center {
+    width: 32px;
+    height: 32px;
+  }
   
   .services-section {
     --cream: #EDE8D0;
@@ -637,6 +646,11 @@
 }
 
 @media (max-width: 480px) {
+  .hire-center {
+    width: 22px;
+    height: 22px;
+  }
+  
   .services-section {
     --cream: #EDE8D0;
     --bar: #45212B;
@@ -990,7 +1004,6 @@
 @media (max-width: 480px) {
   .hero {
     padding: 1.5rem 0.5rem;
-    margin-top: 7px;
   }
   
   .greeting-box {
@@ -1097,15 +1110,27 @@
   }
   
   .hire-circle {
-    width: 65px;
-    height: 65px;
-    top: 50px;
-    left: 240px;
+    width: 55px;
+    height: 55px;
+    top: 55px;
+    left: 250px;
     transform: translateX(-50%);
   }
   
   .hire-text-curved {
     font-size: 0.5rem;
+    transform: scale(1.1);
+    transform-origin: center;
+  }
+  
+  .hire-text-curved {
+    letter-spacing: 1.1px;
+  }
+  
+  .hire-text-curved .bullet-large {
+    font-size: 1.8em;
+    vertical-align: middle;
+    letter-spacing: 0;
   }
   
   /* SVG handles text positioning automatically */
@@ -1240,31 +1265,26 @@
   overflow: visible;
 }
 
-/* create a cream circular puck inside the dark cap */
+/* create a white circular puck inside the dark cap */
 .btn-view-all-icon::before {
   content: "";
   position: absolute;
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background-color: #EDE8D0;
+  background-color: #ffffff;
   border: 2px solid #45212B;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
 }
 
-.btn-view-all-icon span {
+.btn-bullet-icon {
   position: relative;
-  z-index: 1;                 /* above the cream circle */
-  color: #45212B;             /* match brand color inside cream */
-  font-size: 0.9rem;
-  margin: 0;
-  font-weight: 700;
-  line-height: 1;             /* prevent vertical offset */
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
+  z-index: 1;
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .btn-view-all:hover {
@@ -1278,7 +1298,7 @@
   background-color: #3a1e26;
 }
 
-.btn-view-all:hover .btn-view-all-icon span {
+.btn-view-all:hover .btn-bullet-icon {
   transform: translateX(1px);
   transition: transform 0.2s ease;
 }
@@ -1660,7 +1680,7 @@
   height: 22px;
   border-radius: 50%;
   background-color: #ffffff;
-  background-image: url('/bullet-point 3.jpg');
+  background-image: url('/bullet-point.gif');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -1841,20 +1861,19 @@
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #EDE8D0;
+    background-color: #ffffff;
     border: 1.5px solid #45212B;
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
   }
   
-  .btn-view-all-icon span {
+  .btn-bullet-icon {
     position: relative;
     z-index: 2;
-    color: #45212B;
-    font-size: 0.7rem;
-    font-weight: 700;
-    margin: 0;
+    width: 14px;
+    height: 14px;
+    object-fit: contain;
   }
   
   .btn-view-all span { 
@@ -2190,7 +2209,7 @@
   position: relative;
 }
 
-.btn-about-services .btn-play {
+.btn-about-icon {
   position: absolute;
   right: 8px;
   top: 50%;
@@ -2198,14 +2217,17 @@
   width: 36px;
   height: 36px;
   border-radius: 50%;
-  background: #EDE8D0;
-  color: #45212B;
+  background: #ffffff;
   border: 2px solid #45212B;
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 700;
-  line-height: 1;             /* keep glyph optically centered */
+}
+
+.btn-about-bullet {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 .about-signature {
@@ -2246,7 +2268,7 @@
 }
 
 @media (max-width: 768px) {
-  .about-section { padding: 4rem 0 3.5rem; }
+  .about-section { padding: 4rem 1.5rem 3.5rem; }
   .about-title { font-size: 2.2rem; }
   .about-stat .stat-number { font-size: 2.4rem; }
   
@@ -2259,7 +2281,7 @@
 /* Mobile-specific About Section Styling */
 @media (max-width: 480px) {
   .about-section {
-    padding: 3rem 1rem;
+    padding: 3rem 2rem;
     margin-top: 50px;
     min-height: auto;
   }
@@ -2343,11 +2365,15 @@
     font-size: 0.75rem;
   }
   
-  .btn-about-services .btn-play {
+  .btn-about-icon {
     width: 26px;
     height: 26px;
     right: 5px;
-    font-size: 0.7rem;
+  }
+  
+  .btn-about-bullet {
+    width: 14px;
+    height: 14px;
   }
   
   .about-signature {
@@ -2678,7 +2704,26 @@
 .form-actions { display: flex; justify-content: center; margin-top: .5rem; }
 .contact-cta-actions { grid-column: 1 / -1; display: flex; justify-content: center; margin-top: 1rem; }
 .btn-submit-contact { background: linear-gradient(to right, #EDE8D0 0%, #EDE8D0 78%, #45212B 78%, #45212B 100%); border: 2px solid #45212B; border-radius: 28px; height: 48px; min-width: 220px; display: inline-flex; align-items: center; justify-content: center; position: relative; padding: 0 56px 0 22px; color: #45212B; font-weight: 600; cursor: pointer; margin-top: -2rem; }
-.btn-submit-contact .btn-submit-icon { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); width: 34px; height: 34px; background: #EDE8D0; border: 2px solid #45212B; border-radius: 50%; display: grid; place-items: center; font-weight: 700; }
+.btn-submit-icon { 
+  position: absolute; 
+  right: 8px; 
+  top: 50%; 
+  transform: translateY(-50%); 
+  width: 34px; 
+  height: 34px; 
+  background: #ffffff; 
+  border: 2px solid #45212B; 
+  border-radius: 50%; 
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+}
+
+.btn-submit-bullet {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
 
 @media (max-width: 1024px) {
   .contact-cta-container { grid-template-columns: 1fr; }
@@ -2798,11 +2843,15 @@
     margin-top: 0;
   }
   
-  .btn-submit-contact .btn-submit-icon {
+  .btn-submit-icon {
     width: 28px;
     height: 28px;
     right: 6px;
-    font-size: 0.7rem;
+  }
+  
+  .btn-submit-bullet {
+    width: 14px;
+    height: 14px;
   }
 }
 
@@ -2978,8 +3027,8 @@
 }
 
 .nav-btn {
-  width: 50px;
-  height: 50px;
+  width: 38px;
+  height: 38px;
   border: 1px solid #ddd;
   border-radius: 50%;
   background: white;
@@ -2992,10 +3041,10 @@
   box-shadow: 0 2px 8px rgba(69, 33, 43, 0.15);
   position: relative;
   z-index: 10;
+  outline: none;
 }
 
 .nav-btn:hover {
-  background: #45212B;
   color: white;
   transform: scale(1.1);
   box-shadow: 0 4px 12px rgba(69, 33, 43, 0.25);
@@ -3003,6 +3052,13 @@
 
 .nav-btn:active {
   transform: scale(0.95);
+  outline: none;
+  border: 1px solid #ddd;
+}
+
+.nav-btn:focus {
+  outline: none;
+  border: 1px solid #ddd;
 }
 
 .nav-btn:disabled {
@@ -3026,6 +3082,16 @@
   stroke-width: 2.5;
 }
 
+.nav-bullet {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.nav-prev .nav-bullet {
+  transform: rotate(180deg);
+}
+
 @media (max-width: 1024px) {
   .testimonial-card {
     width: 600px;
@@ -3047,6 +3113,15 @@
   .nav-btn {
     width: 45px;
     height: 45px;
+    outline: none;
+  }
+  
+  .nav-btn:focus {
+    outline: none;
+  }
+  
+  .nav-btn:active {
+    outline: none;
   }
   
   .nav-btn svg {
@@ -3070,6 +3145,15 @@
   .nav-btn {
     width: 42px;
     height: 42px;
+    outline: none;
+  }
+  
+  .nav-btn:focus {
+    outline: none;
+  }
+  
+  .nav-btn:active {
+    outline: none;
   }
   
   .nav-btn svg {
@@ -3203,6 +3287,17 @@
   .nav-btn {
     width: 38px;
     height: 38px;
+    border-color: #45212B;
+    outline: none;
+  }
+  
+  .nav-btn:focus {
+    outline: none;
+    border-color: #45212B;
+  }
+  
+  .nav-btn:active {
+    outline: none;
     border-color: #45212B;
   }
   
