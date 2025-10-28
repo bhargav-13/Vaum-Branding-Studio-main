@@ -1,7 +1,7 @@
 import React from 'react'
 import './NotFound.css'
 
-const NotFound: React.FC = () => {
+const abcd: React.FC = () => {
   return (
     <div className="not-found-page">
       <div className="not-found-container">
@@ -27,5 +27,6 @@ const NotFound: React.FC = () => {
   )
 }
 
-export default NotFound
+export default abcd
+
 
