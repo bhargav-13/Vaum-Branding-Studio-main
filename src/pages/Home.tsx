@@ -172,7 +172,9 @@ const Home: React.FC = () => {
               <div className="hero-buttons">
                 <button className="btn-portfolio">
                   <span>View My Portfolio</span>
-                  <div className="play-icon"></div>
+                  <div className="play-icon">
+                    <img src="/play (1).gif" alt="Play" />
+                  </div>
                 </button>
                 <button className="btn-hire">
                   Hire Me
