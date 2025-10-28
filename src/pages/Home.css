@@ -757,8 +757,7 @@
   
     /* full-bleed */
     width: 100vw;
-    margin-left: calc(-50vw + 50%);
-    margin-top: -60px;  /* reduced negative margin for better spacing */
+    margin-left: calc(-50vw + 50%);  /* reduced negative margin for better spacing */
   }
   
   /* The cream diagonals - REMOVED for mobile */
