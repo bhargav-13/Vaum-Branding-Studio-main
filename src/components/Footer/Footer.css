@@ -459,6 +459,9 @@
     transition: background-color 0.3s ease;
     position: relative;
   }
+  /* On very small screens, hide the decorative inner circle to ensure the
+     send button looks distinct from the input field */
+  .subscribe-btn::before { display: none; }
   
   .subscribe-btn::before {
     width: 22px;
