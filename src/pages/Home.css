@@ -1275,6 +1275,7 @@
     font-size: 0.8rem;
     padding: 0.15rem 0.7rem;
     margin-bottom: 0.6rem;
+    margin-left: -15.2rem;
   }
   
   .hero-title {
@@ -1299,22 +1300,23 @@
   
   .btn-portfolio {
     width: auto;
-    min-width: 130px;
-    padding: 0.4rem 0.5rem;
+    min-width: 115px;
+    padding: 0.25rem 0.45rem;
+    height: 32px;
     justify-content: space-between;
     position: relative;
   }
   
   .btn-portfolio::before {
-    width: 38px;
+    width: 45px;
   }
   
   .btn-portfolio span {
     margin-left: 0;
     text-align: center;
     flex: 1;
-    font-size: 0.7rem;
-    padding-right: 42px;
+    font-size: 0.65rem;
+    padding-right: 45px;
   }
   
   .btn-portfolio:hover {
@@ -1322,9 +1324,9 @@
   }
   
   .play-icon {
-    width: 18px;
-    height: 18px;
-    margin-right: 4px;
+    width: 20px;
+    height: 20px;
+    margin-right: 7.5px;
     margin-left: auto;
     background-color: #ffffff;
     border-radius: 50%;
@@ -1349,9 +1351,10 @@
   
   .btn-hire {
     width: auto;
-    min-width: 80px;
-    padding: 0.4rem 0.7rem;
-    font-size: 0.7rem;
+    min-width: 70px;
+    padding: 0.35rem 0.6rem;
+    height: 30px;
+    font-size: 0.65rem;
   }
   
   .hero-right {
@@ -2313,20 +2316,24 @@
   
   .services-cards-grid {
     grid-template-columns: 1fr !important;
-    gap: 0.1rem !important;
+    gap: 0px !important;
     padding: 0 0.2rem !important;
   }
   
   .service-card {
-    padding: 0.7rem 0.8rem;
-    height: 180px;
-    min-height: 180px;
+    padding: 0.7rem 1.2rem;
+    height: 185px;
+    min-height: 185px;
     min-width: auto;
-    width: 100%;
+    width: 88%;
+    max-width: 360px;
+    margin-left: auto;
+    margin-right: auto;
     border-radius: 12px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
     margin-top: 3rem;
     border: 1.2px solid #C7C7C7;
+    background-color: #F6F6F6;
   }
   
   .service-card-icon {
@@ -3237,6 +3244,61 @@
   }
 }
 
+/* Further tighten Tools at 430px */
+@media (max-width: 430px) {
+  .tools-section {
+    padding: 2rem 0.6rem;
+  }
+
+  .tools-title {
+    font-size: 1.5rem;
+    margin-top: 0.2rem;   /* lift title a bit */
+    margin-bottom: 1.2rem; /* reduce bottom gap */
+  }
+
+  .tools-subtitle { margin-bottom: 0.2rem; }
+
+  .tools-grid {
+    /* Use fixed narrow tracks to remove inner whitespace */
+    grid-template-columns: repeat(2, 120px);
+    column-gap: 30px;
+    row-gap: 1.8rem;
+    margin-top: 2rem;
+    justify-content: center;
+    justify-items: center;
+  }
+
+  /* Center the last tool card on a new row spanning both columns */
+  .tool-card:nth-child(5) {
+    grid-column: 1 / -1;
+    justify-self: center;
+  }
+
+  .tool-oval {
+    width: 95px;
+    height: 145px;
+  }
+
+  .tool-logo-circle {
+    width: 48px;
+    height: 48px;
+  }
+
+  .tool-logo-circle img {
+    width: 24px;
+    height: 24px;
+  }
+
+  .tool-percentage {
+    font-size: 1.4rem;
+    margin-top: 6px;
+  }
+
+  .tool-name {
+    font-size: 0.8rem;
+  }
+}
+
 /* ===================== */
 /* Contact CTA Section   */
 /* ===================== */
@@ -3529,6 +3591,23 @@
     width: 14px;
     height: 14px;
   }
+}
+
+/* Contact placeholders smaller on 430px */
+@media (max-width: 430px) {
+  .contact-cta-form input::placeholder,
+  .contact-cta-form textarea::placeholder {
+    font-size: 0.8rem;
+  }
+  /* Match dropdown text size with placeholders on small screens */
+  .contact-cta-form .form-field select,
+  .contact-cta-form select {
+    font-size: 0.8rem !important;
+    line-height: 1.2;
+    padding: 0.7rem 0.9rem !important; /* match input at small screens */
+    height: auto;
+  }
+  .contact-cta-form select option { font-size: 0.8rem !important; }
 }
 
 /* ===================== */
