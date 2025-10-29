@@ -48,11 +48,13 @@
 
 .col-title { color: #45212B; margin: 0 0 0.75rem 0; font-size: 1.3rem; font-weight: 600; }
 .col-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem; margin-top: 2rem; }
-.col-list a { color: #797070; text-decoration: none; font-size: 1.05rem; font-weight: 450; }
+.col-list a { color: #797070; text-decoration: none; font-size: 1.05rem; font-weight: 450; transition: color 0.2s ease; }
+.col-list a:hover { color: #45212B; }
 
 
 .contact-items { display: grid; gap: 0.8rem; margin-top: 2rem; }
-.contact-items a { color: #797070; text-decoration: none; word-break: break-word; font-size: 1.05rem; font-weight: 450 }
+.contact-items a { color: #797070; text-decoration: none; word-break: break-word; font-size: 1.05rem; font-weight: 450; transition: color 0.2s ease; }
+.contact-items a:hover { color: #45212B; }
 
 .footer-col:nth-child(2) {
   margin-left: -60px;
