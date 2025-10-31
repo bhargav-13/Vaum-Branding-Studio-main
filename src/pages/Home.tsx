@@ -226,121 +226,177 @@ const Home: React.FC = () => {
           <div className="services-bar">
             {/* First set */}
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Website Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Application Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Logo Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Brochure Design</span>
             </div>
             {/* Second set for seamless loop */}
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Website Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Application Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Logo Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Brochure Design</span>
             </div>
             {/* Third set for continuous flow */}
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Website Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Application Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Logo Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Brochure Design</span>
             </div>
             {/* Fourth set for perfect loop */}
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Website Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Application Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Logo Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Brochure Design</span>
             </div>
             {/* Fifth set for seamless continuity */}
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Website Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Application Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Logo Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Brochure Design</span>
             </div>
             {/* Sixth set for perfect continuity */}
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Website Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Application Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Logo Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Brochure Design</span>
             </div>
             {/* Seventh set for infinite loop */}
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Website Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Application Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Logo Design</span>
             </div>
             <div className="service-item">
-              <span className="star-icon">✦</span>
+              <span className="star-icon">
+                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+              </span>
               <span className="service-text">Brochure Design</span>
             </div>
           </div>
@@ -556,7 +612,12 @@ const Home: React.FC = () => {
 
             <ul className="contact-cta-list">
               <li>
-                <span className="contact-cta-icon">✉</span>
+                <span className="contact-cta-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
+                    <rect x="3" y="5" width="18" height="14" rx="2" ry="2"></rect>
+                    <polyline points="3,7 12,13 21,7"></polyline>
+                  </svg>
+                </span>
                 <a href="mailto:vaum.branding@gmail.com">vaum.branding@gmail.com</a>
               </li>
               <li>
@@ -738,121 +799,177 @@ const Home: React.FC = () => {
           <div className="services-bar-2">
             {/* First set */}
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Website Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Application Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Logo Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Brochure Design</span>
             </div>
             {/* Second set for seamless loop */}
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Website Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Application Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Logo Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Brochure Design</span>
             </div>
             {/* Third set for continuous flow */}
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Website Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Application Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Logo Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Brochure Design</span>
             </div>
             {/* Fourth set for perfect loop */}
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Website Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Application Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Logo Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Brochure Design</span>
             </div>
             {/* Fifth set for seamless continuity */}
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Website Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Application Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Logo Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Brochure Design</span>
             </div>
             {/* Sixth set for perfect continuity */}
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Website Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Application Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Logo Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Brochure Design</span>
             </div>
             {/* Seventh set for infinite loop */}
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Website Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Application Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Logo Design</span>
             </div>
             <div className="service-item-2">
-              <span className="star-icon-2">✦</span>
+              <span className="star-icon-2">
+                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+              </span>
               <span className="service-text-2">Brochure Design</span>
             </div>
           </div>

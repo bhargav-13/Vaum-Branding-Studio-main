@@ -471,11 +471,18 @@
 }
 
 .star-icon {
-  font-size: 2rem;
-  color: white;
-  font-weight: bold;
-  animation: pulse 2s ease-in-out infinite;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
   margin-right: 50px;
+}
+
+.star-icon img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .service-text {
@@ -517,7 +524,8 @@
   }
   
   .star-icon {
-    font-size: 1.8rem;
+    width: 29px;
+    height: 29px;
   }
 }
 
@@ -608,10 +616,8 @@
   }
   
   .star-icon {
-    font-size: 2rem;
-    color: white;
-    font-weight: bold;
-    animation: pulse 2s ease-in-out infinite;
+    width: 32px;
+    height: 32px;
   }
   
   .service-text {
@@ -655,7 +661,8 @@
   .star-icon { 
     margin-left: -3rem; 
     margin-right: 0.6rem; 
-    font-size: 1.1rem; 
+    width: 18px; 
+    height: 18px;
   }
 }
 
@@ -722,10 +729,8 @@
   }
   
   .star-icon {
-    font-size: 1.2rem;
-    color: white;
-    font-weight: bold;
-    animation: pulse 2s ease-in-out infinite;
+    width: 19px;
+    height: 19px;
     margin-left: -2.5rem;
     margin-right: 1rem;
   }
@@ -820,10 +825,8 @@
   }
   
   .star-icon {
-    font-size: 1rem;  /* reduced star size */
-    color: white;
-    font-weight: bold;
-    animation: pulse 2s ease-in-out infinite;
+    width: 16px;  /* reduced star size */
+    height: 16px;
     margin-left: -2rem;  /* adjusted margin */
     margin-right: 0.8rem;  /* reduced margin */
   }
@@ -1293,7 +1296,7 @@
     font-size: 0.8rem;
     padding: 0.15rem 0.7rem;
     margin-bottom: 0.6rem;
-    margin-left: -15.2rem;
+    margin-left: -14.22rem;
   }
   
   .hero-title {
@@ -3676,7 +3679,7 @@
 }
 
 .testimonials-title-highlight {
-  color: #EDE8D0;
+  color: #E5DBAB;
   display: block;
   margin-top: 0.5rem;
   font-style: italic;
@@ -4210,11 +4213,18 @@
 }
 
 .star-icon-2 {
-  font-size: 2rem;
-  color: white;
-  font-weight: bold;
-  animation: pulse2 2s ease-in-out infinite;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
   margin-right: 50px;
+}
+
+.star-icon-2 img {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 .service-text-2 {
@@ -4257,7 +4267,8 @@
   }
   
   .star-icon-2 {
-    font-size: 1.8rem;
+    width: 29px;
+    height: 29px;
   }
 }
 
@@ -4321,10 +4332,8 @@
   }
   
   .star-icon-2 {
-    font-size: 1.2rem;
-    color: white;
-    font-weight: bold;
-    animation: pulse 2s ease-in-out infinite;
+    width: 19px;
+    height: 19px;
     margin-left: -2.5rem;
     margin-right: 1rem;
   }
