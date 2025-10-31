@@ -59,7 +59,7 @@ const Footer: React.FC = () => {
               <h4 className="col-title">Contact</h4>
               <div className="contact-items">
                 <a href="https://www.instagram.com/vaum.studio?igsh=MXU2Yzc3dGtzODJncw%3D%3D" target="_blank" rel="noopener noreferrer">vaum.studio</a>
-                <a href="mailto:vaumstudio@gmail.com">vaumstudio@gmail.com</a>
+                <a href="mailto:vaum.branding@gmail.com">vaum.branding@gmail.com</a>
               </div>
             </div>
             <div className="footer-col">
