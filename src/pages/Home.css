@@ -3,12 +3,166 @@
   margin-left: -100px;
 }
 
+/* Scroll Animation Styles - Enhanced with smoother effects */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(60px);
+  filter: blur(0px);
+  transition: opacity 1s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+              transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.8s ease-out;
+  will-change: opacity, transform, filter;
+}
+
+.scroll-animate.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0px);
+}
+
+/* Staggered child animations with enhanced effects */
+.animate-child {
+  opacity: 0;
+  transform: translateY(50px) scale(0.96) rotateX(5deg);
+  filter: blur(4px);
+  transition: opacity 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.6s ease-out;
+  will-change: opacity, transform, filter;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+}
+
+/* Faster animation for form fields to match other sections */
+.form-field.animate-child {
+  transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              filter 0.5s ease-out;
+}
+
+.animate-child.child-animate-in {
+  opacity: 1;
+  transform: translateY(0) scale(1) rotateX(0deg);
+  filter: blur(0px);
+}
+
+/* Enhanced animation for service cards with slight bounce */
+.service-card.animate-child {
+  transform: translateY(50px) scale(0.96) rotateX(5deg);
+}
+
+.service-card.animate-child.child-animate-in {
+  transform: translateY(0) scale(1) rotateX(0deg);
+  animation: cardPop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s;
+}
+
+@keyframes cardPop {
+  0% { transform: translateY(0) scale(1) rotateX(0deg); }
+  50% { transform: translateY(-5px) scale(1.02) rotateX(0deg); }
+  100% { transform: translateY(0) scale(1) rotateX(0deg); }
+}
+
+/* Enhanced animation for tool cards */
+.tool-card.animate-child {
+  transform: translateY(50px) scale(0.94) rotateY(3deg);
+}
+
+.tool-card.animate-child.child-animate-in {
+  transform: translateY(0) scale(1) rotateY(0deg);
+}
+
+/* Enhanced animation for section headers */
+.services-cards-header.animate-child,
+.tools-header.animate-child,
+.contact-cta-left .animate-child,
+.about-right .animate-child,
+.testimonials-subtitle.animate-child,
+.testimonials-title.animate-child {
+  transition-delay: 0s;
+}
+
+/* Smooth fade-in for text content with slide effect */
+.about-desc,
+.contact-cta-desc,
+.service-card-description {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s,
+              transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.3s;
+}
+
+.scroll-animate.animate-in .about-desc,
+.scroll-animate.animate-in .contact-cta-desc,
+.service-card.child-animate-in .service-card-description {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.scroll-animate:not(.animate-in) .about-desc,
+.scroll-animate:not(.animate-in) .contact-cta-desc {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+/* Enhanced hover effects for animated elements */
+.service-card.child-animate-in:hover {
+  transform: translateY(-6px) scale(1.01);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.tool-card.child-animate-in:hover .tool-oval {
+  transform: scale(1.08);
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Performance optimization - remove will-change after animation */
+.scroll-animate.animate-in,
+.animate-child.child-animate-in {
+  will-change: auto;
+}
+
+/* Smooth entrance for section titles */
+.services-cards-title,
+.tools-title,
+.about-title,
+.contact-cta-title,
+.testimonials-title {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s,
+              transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94) 0.1s;
+}
+
+.scroll-animate.animate-in .services-cards-title,
+.scroll-animate.animate-in .tools-title,
+.scroll-animate.animate-in .about-title,
+.scroll-animate.animate-in .contact-cta-title,
+.scroll-animate.animate-in .testimonials-title {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure hero section is always visible and not affected by scroll animations */
 .hero {
   background-color: white;
   padding: 4rem 2rem;
   min-height: 90vh;
   display: flex;
   align-items: center;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Ensure first services section is always visible and not affected by scroll animations */
+.services-section {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Ensure second services section is always visible and not affected by scroll animations */
+.services-section-2 {
+  opacity: 1 !important;
+  transform: none !important;
 }
 
 .hero-container {

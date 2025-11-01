@@ -151,6 +151,75 @@ const Home: React.FC = () => {
     io.observe(section)
     return () => io.disconnect()
   }, [])
+
+  // Scroll-triggered animations for all sections with enhanced staggered child animations
+  useEffect(() => {
+    const sections = document.querySelectorAll<HTMLElement>('.scroll-animate')
+    
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const section = entry.target as HTMLElement
+            section.classList.add('animate-in')
+            
+            // Animate child elements with intelligent stagger effect
+            const childrenToAnimate = section.querySelectorAll<HTMLElement>('.animate-child')
+            
+            childrenToAnimate.forEach((child, index) => {
+              // Different delays based on element type for more natural flow
+              let delay = index * 120 // Base delay of 120ms
+              
+              // Service cards get slightly faster stagger
+              if (child.classList.contains('service-card')) {
+                delay = index * 100
+              }
+              
+              // Tool cards get medium stagger
+              if (child.classList.contains('tool-card')) {
+                delay = index * 110
+              }
+              
+              // Form fields get fast stagger to match service cards
+              if (child.classList.contains('form-field')) {
+                delay = index * 80
+              }
+              
+              // Headers animate immediately
+              if (child.classList.contains('services-cards-header') || 
+                  child.classList.contains('tools-header')) {
+                delay = 50
+              }
+              
+              // Contact description and list animate quickly
+              if (child.classList.contains('contact-cta-desc') || 
+                  child.classList.contains('contact-cta-list')) {
+                delay = 100
+              }
+              
+              setTimeout(() => {
+                child.classList.add('child-animate-in')
+              }, delay)
+            })
+          }
+        })
+      },
+      { 
+        threshold: 0.1, // Trigger when 10% of section is visible (earlier trigger)
+        rootMargin: '0px 0px -80px 0px' // Start animation earlier
+      }
+    )
+
+    sections.forEach((section) => {
+      observer.observe(section)
+    })
+
+    return () => {
+      sections.forEach((section) => {
+        observer.unobserve(section)
+      })
+    }
+  }, [])
   return (
     <>
       <div className="home">
@@ -404,9 +473,9 @@ const Home: React.FC = () => {
       </section>
 
       {/* Services Cards Section */}
-      <section className="services-cards-section">
+      <section className="services-cards-section scroll-animate">
         <div className="services-cards-container">
-          <div className="services-cards-header">
+          <div className="services-cards-header animate-child">
             <div className="services-cards-title-group">
               <div className="services-subtitle">
                 <div className="subtitle-line"></div>
@@ -423,7 +492,7 @@ const Home: React.FC = () => {
           </div>
           
           <div className="services-cards-grid">
-            <div className="service-card">
+            <div className="service-card animate-child">
               <div className="service-card-icon">
                 <div className="icon-circle">
                   <img src="/computer (1).gif" alt="Computer" />
@@ -438,7 +507,7 @@ const Home: React.FC = () => {
               </a>
             </div>
             
-            <div className="service-card">
+            <div className="service-card animate-child">
               <div className="service-card-icon">
                 <div className="icon-circle">
                   <img src="/vector (1).gif" alt="Vector" />
@@ -453,7 +522,7 @@ const Home: React.FC = () => {
               </a>
             </div>
             
-            <div className="service-card">
+            <div className="service-card animate-child">
               <div className="service-card-icon">
                 <div className="icon-circle">
                   <img src="/web-design (1).gif" alt="Web Design" />
@@ -472,9 +541,9 @@ const Home: React.FC = () => {
       </section>
 
       {/* About Section */}
-      <section className="about-section">
+      <section className="about-section scroll-animate">
         <div className="about-container">
-            <div className="about-circle">
+            <div className="about-circle animate-child">
               <img src="/Mask group.svg" alt="Vachika profile" />
               
               {/* Design Badges */}
@@ -487,26 +556,26 @@ const Home: React.FC = () => {
               <div className="about-badge about-badge-7">Wireframe Design</div>
             </div>
           <div className="about-right">
-            <div className="about-subtitle">
+            <div className="about-subtitle animate-child">
               <span className="subtitle-line"></span>
               <span>About Me</span>
             </div>
-            <h2 className="about-title"><span className="about-title-lead">Who is</span> <i>Vachika Bhanderi</i> ?</h2>
+            <h2 className="about-title animate-child"><span className="about-title-lead">Who is</span> <i>Vachika Bhanderi</i> ?</h2>
             <p className="about-desc">
               At Vaum Branding studio, we craft unique and impactful brand identities that help businesses stand out.
               From logo design and brand strategy to digital creatives, we blend creativity with strategy to deliver
               designs that inspire and connect with your audience.
             </p>
             <div className="about-stats">
-              <div className="about-stat">
+              <div className="about-stat animate-child">
                 <div className="stat-number"><span className="count-up" data-target="20">0</span>+</div>
                 <div className="stat-label">Project Completed</div>
               </div>
-              <div className="about-stat">
+              <div className="about-stat animate-child">
                 <div className="stat-number"><span className="count-up" data-target="5">0</span>+</div>
                 <div className="stat-label">Industry Covered</div>
               </div>
-              <div className="about-stat">
+              <div className="about-stat animate-child">
                 <div className="stat-number"><span className="count-up" data-target="2">0</span>+</div>
                 <div className="stat-label">Years of Experience</div>
               </div>
@@ -525,9 +594,9 @@ const Home: React.FC = () => {
       </section>
 
       {/* Favorite Tools Section */}
-      <section className="tools-section">
+      <section className="tools-section scroll-animate">
         <div className="tools-container">
-          <div className="tools-header">
+          <div className="tools-header animate-child">
             <div className="tools-subtitle">
               <span className="subtitle-line" />
               <span>My Favorite Tools</span>
@@ -541,7 +610,7 @@ const Home: React.FC = () => {
 
           <div className="tools-grid">
             {/* Figma */}
-            <div className="tool-card">
+            <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
                   <img src="/devicon_figma.jpg" alt="Figma" />
@@ -551,7 +620,7 @@ const Home: React.FC = () => {
               <div className="tool-name">Figma</div>
             </div>
             {/* Canva */}
-            <div className="tool-card">
+            <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
                   <img src="/devicon_canva.jpg" alt="Canva" />
@@ -561,7 +630,7 @@ const Home: React.FC = () => {
               <div className="tool-name">Canva</div>
             </div>
             {/* Photoshop */}
-            <div className="tool-card">
+            <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
                   <img src="/photoshop.jpg" alt="Photoshop" />
@@ -571,7 +640,7 @@ const Home: React.FC = () => {
               <div className="tool-name">Photoshop</div>
             </div>
             {/* InVision */}
-            <div className="tool-card">
+            <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
                   <img src="/logos_invision-icon.jpg" alt="InVision" />
@@ -581,7 +650,7 @@ const Home: React.FC = () => {
               <div className="tool-name">InVision</div>
             </div>
             {/* Sketch */}
-            <div className="tool-card">
+            <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
                   <img src="/devicon_sketch.jpg" alt="Sketch" />
@@ -595,22 +664,22 @@ const Home: React.FC = () => {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="contact-cta-section">
+      <section id="contact" className="contact-cta-section scroll-animate">
         <div className="contact-cta-container">
           <div className="contact-cta-left">
-            <div className="contact-cta-subtitle">
+            <div className="contact-cta-subtitle animate-child">
               <span className="subtitle-line"></span>
               <span>Contact Us</span>
             </div>
-            <h2 className="contact-cta-title">
-              Let’s talk For <i>Your</i><br />
+            <h2 className="contact-cta-title animate-child">
+              Let's talk For <i>Your</i><br />
               <i>Next Projects</i>
             </h2>
-            <p className="contact-cta-desc">
-              At Vaum Branding Studio, we love collaborating on ideas that inspire. Whether you need branding, a website, or digital design — let’s create something unique together!
+            <p className="contact-cta-desc animate-child">
+              At Vaum Branding Studio, we love collaborating on ideas that inspire. Whether you need branding, a website, or digital design — let's create something unique together!
             </p>
 
-            <ul className="contact-cta-list">
+            <ul className="contact-cta-list animate-child">
               <li>
                 <span className="contact-cta-icon">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" focusable="false">
@@ -644,20 +713,20 @@ const Home: React.FC = () => {
           <div className="contact-cta-right">
             <form className="contact-cta-form" onSubmit={(e) => e.preventDefault()}>
               <div className="form-grid-two">
-                <div className="form-field">
+                <div className="form-field animate-child">
                   <label>Your Name*</label>
                   <input type="text" placeholder="Ex. Darshil Patel" required />
                 </div>
-                <div className="form-field">
+                <div className="form-field animate-child">
                   <label>Email*</label>
                   <input type="email" placeholder="Example@gmail.com" required />
                 </div>
-                <div className="form-field">
+                <div className="form-field animate-child">
                   <label>Phone*</label>
                   <input type="tel" placeholder="Enter Phone Number" required />
                 </div>
-                <div className="form-field">
-                  <label>I’m Interested in*</label>
+                <div className="form-field animate-child">
+                  <label>I'm Interested in*</label>
                   <select defaultValue="">
                     <option value="" disabled>Select</option>
                     <option>Branding</option>
@@ -667,7 +736,7 @@ const Home: React.FC = () => {
                     <option>Other</option>
                   </select>
                 </div>
-                <div className="form-field">
+                <div className="form-field animate-child">
                   <label>Budget Range*</label>
                   <select defaultValue="">
                     <option value="" disabled>Select Range</option>
@@ -677,7 +746,7 @@ const Home: React.FC = () => {
                     <option>$2500+</option>
                   </select>
                 </div>
-                <div className="form-field">
+                <div className="form-field animate-child">
                   <label>Country*</label>
                   <select defaultValue="">
                     <option value="" disabled>Select Country</option>
@@ -690,14 +759,14 @@ const Home: React.FC = () => {
                 </div>
               </div>
 
-              <div className="form-field form-field-full">
+              <div className="form-field form-field-full animate-child">
                 <label>Your Message*</label>
                 <textarea placeholder="Enter here..." required></textarea>
               </div>
             </form>
           </div>
           <div className="contact-cta-actions">
-            <button className="btn-submit-contact" type="button">
+            <button className="btn-submit-contact animate-child" type="button">
               <span>Submit</span>
               <div className="btn-submit-icon">
                 <img src="/bullet-point.gif" alt="Submit" className="btn-submit-bullet" />
@@ -708,13 +777,13 @@ const Home: React.FC = () => {
       </section>
 
       {/* Testimonials Section */}
-      <section className="testimonials-section">
+      <section className="testimonials-section scroll-animate">
         <div className="testimonials-container">
-          <div className="testimonials-subtitle">
+          <div className="testimonials-subtitle animate-child">
             <span className="subtitle-line"></span>
             <span>Clients Testimonials</span>
           </div>
-          <h2 className="testimonials-title">
+          <h2 className="testimonials-title animate-child">
             The Impact of My Work: <span className="testimonials-title-highlight">Client Testimonials</span>
           </h2>
           
