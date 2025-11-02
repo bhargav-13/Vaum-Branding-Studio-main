@@ -35,7 +35,7 @@ const Header: React.FC = () => {
         {/* Center Logo */}
         <a href="/" className="logo" onClick={handleLinkClick}>
           <img src="/Logo.svg" alt="VAUM" className="logo-img desktop-logo" />
-          <img src="/mobile.svg" alt="VAUM" className="logo-img mobile-logo" />
+          <img src="/mobile-logoo.svg" alt="VAUM" className="logo-img mobile-logo" />
         </a>
 
         {/* Desktop Right Navigation */}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import './Home.css'
 
 const Home: React.FC = () => {
@@ -11,6 +11,19 @@ const Home: React.FC = () => {
     invision: 0,
     sketch: 0
   })
+  
+  // Swipe/Drag state
+  const [isDragging, setIsDragging] = useState(false)
+  const [startX, setStartX] = useState(0)
+  const [dragOffset, setDragOffset] = useState(0)
+  const dragRef = useRef({ isDragging: false, startX: 0, dragOffset: 0 })
+  
+  // Update refs when state changes
+  useEffect(() => {
+    dragRef.current.isDragging = isDragging
+    dragRef.current.startX = startX
+    dragRef.current.dragOffset = dragOffset
+  }, [isDragging, startX, dragOffset])
 
   // Form state for WhatsApp integration
   const [formData, setFormData] = useState({
@@ -81,6 +94,113 @@ ${formData.message}`
     setCurrentTestimonial((prev) => (prev - 1 + totalTestimonials) % totalTestimonials)
   }
 
+  // Swipe/Drag handlers
+  const handleStart = (clientX: number) => {
+    setIsDragging(true)
+    setStartX(clientX)
+    setDragOffset(0)
+  }
+
+  const handleMove = (clientX: number) => {
+    if (!isDragging) return
+    const offset = clientX - startX
+    setDragOffset(offset)
+  }
+
+  const handleEnd = () => {
+    if (!isDragging) return
+    
+    const swipeThreshold = 50 // Minimum distance to trigger swipe
+    
+    if (Math.abs(dragOffset) > swipeThreshold) {
+      if (dragOffset > 0) {
+        // Swipe right - previous
+        prevTestimonial()
+      } else {
+        // Swipe left - next
+        nextTestimonial()
+      }
+    }
+    
+    setIsDragging(false)
+    setDragOffset(0)
+  }
+
+  // Touch event handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    handleStart(e.touches[0].clientX)
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (isDragging) {
+      handleMove(e.touches[0].clientX)
+    }
+  }
+
+  const handleTouchEnd = () => {
+    handleEnd()
+  }
+
+  // Mouse event handlers (for desktop drag)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault()
+    handleStart(e.clientX)
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (isDragging) {
+      handleMove(e.clientX)
+    }
+  }
+
+  const handleMouseUp = () => {
+    handleEnd()
+  }
+
+  const handleMouseLeave = () => {
+    if (isDragging) {
+      handleEnd()
+    }
+  }
+
+  // Global mouse events for smooth dragging
+  useEffect(() => {
+    const handleGlobalMouseMove = (e: MouseEvent) => {
+      if (dragRef.current.isDragging) {
+        const offset = e.clientX - dragRef.current.startX
+        setDragOffset(offset)
+      }
+    }
+
+    const handleGlobalMouseUp = () => {
+      if (dragRef.current.isDragging) {
+        const swipeThreshold = 50
+        const offset = dragRef.current.dragOffset
+        
+        if (Math.abs(offset) > swipeThreshold) {
+          if (offset > 0) {
+            prevTestimonial()
+          } else {
+            nextTestimonial()
+          }
+        }
+        
+        setIsDragging(false)
+        setDragOffset(0)
+      }
+    }
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleGlobalMouseMove)
+      document.addEventListener('mouseup', handleGlobalMouseUp)
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleGlobalMouseMove)
+      document.removeEventListener('mouseup', handleGlobalMouseUp)
+    }
+  }, [isDragging])
+
   // Animate tool percentages when section comes into view
   useEffect(() => {
     const section = document.querySelector('.tools-section')
@@ -148,21 +268,56 @@ ${formData.message}`
       if (hasRun) return
       hasRun = true
 
-      counters.forEach((el) => {
-        const target = parseInt(el.dataset.target || '0', 10)
-        const durationMs = 1200
-        const startTime = performance.now()
+      // Wait for section animation to start, then begin counting
+      setTimeout(() => {
+        counters.forEach((el, index) => {
+          const target = parseInt(el.dataset.target || '0', 10)
+          const durationMs = 3500 // Slower duration for clearly visible animation
+          const startTime = performance.now()
+          
+          // Stagger each counter slightly for sequential animation
+          const delay = index * 200
 
-        const step = (now: number) => {
-          const progress = Math.min((now - startTime) / durationMs, 1)
-          const eased = 1 - Math.pow(1 - progress, 3) // easeOutCubic
-          const current = Math.floor(eased * target)
-          el.textContent = String(current)
-          if (progress < 1) requestAnimationFrame(step)
-          else el.textContent = String(target)
-        }
-        requestAnimationFrame(step)
-      })
+          setTimeout(() => {
+            // Smooth easing function - easeOutExpo for very smooth animation
+            const easeOutExpo = (t: number) => {
+              return t === 1 ? 1 : 1 - Math.pow(2, -10 * t)
+            }
+            
+            const step = (now: number) => {
+              const elapsed = now - startTime
+              const progress = Math.min(elapsed / durationMs, 1)
+              
+              // Ultra-smooth easing: easeOutExpo
+              const eased = easeOutExpo(progress)
+              
+              // Use more precise calculation for smoother increments
+              const current = Math.round(eased * target)
+              
+              // Only update if number actually changed (reduces repaints)
+              if (el.textContent !== String(current)) {
+                el.textContent = String(current)
+              }
+              
+              // Ensure visibility
+              if (el.style.opacity !== '1') {
+                el.style.opacity = '1'
+                el.style.transform = 'scale(1)'
+              }
+              
+              if (progress < 1) {
+                requestAnimationFrame(step)
+              } else {
+                // Ensure final number is exact
+                el.textContent = String(target)
+                el.style.opacity = '1'
+                el.style.transform = 'scale(1)'
+              }
+            }
+            requestAnimationFrame(step)
+          }, delay)
+        })
+      }, 500) // Delay to sync with section animation
     }
 
     const io = new IntersectionObserver((entries) => {
@@ -172,7 +327,10 @@ ${formData.message}`
           io.disconnect()
         }
       })
-    }, { threshold: 0.3 })
+    }, { 
+      threshold: 0.15, // Trigger when section is clearly visible
+      rootMargin: '0px 0px -80px 0px'
+    })
 
     io.observe(section)
     return () => io.disconnect()
@@ -211,6 +369,25 @@ ${formData.message}`
 
     io.observe(section)
     return () => io.disconnect()
+  }, [])
+
+  // Hero section animations on page load
+  useEffect(() => {
+    const heroElements = [
+      { selector: '.hero .greeting-box', delay: 200 },
+      { selector: '.hero .hero-title', delay: 400 },
+      { selector: '.hero .hero-description', delay: 600 },
+      { selector: '.hero .hero-buttons', delay: 800 }
+    ]
+
+    heroElements.forEach(({ selector, delay }) => {
+      const element = document.querySelector<HTMLElement>(selector)
+      if (element) {
+        setTimeout(() => {
+          element.classList.add('hero-animate-in')
+        }, delay)
+      }
+    })
   }, [])
 
   // Scroll-triggered animations for all sections with enhanced staggered child animations
@@ -288,18 +465,18 @@ ${formData.message}`
           <div className="hero-container">
             {/* Left Side - Text Content */}
             <div className="hero-left">
-              <div className="greeting-box">
+              <div className="greeting-box hero-text-animate">
                 <span>Hello There!</span>
               </div>
-              <h1 className="hero-title">
+              <h1 className="hero-title hero-text-animate">
                 I'm <i><span className="underlined">Vachika Bhanderi</span></i>,
                 Graphic Designer.
               </h1>
-              <p className="hero-description">
+              <p className="hero-description hero-text-animate">
                 Passionate Graphic Designer with expertise in branding, logo identity, and creative strategy. 
                 Helping businesses and startups build strong visual identities through impactful design.
               </p>
-              <div className="hero-buttons">
+              <div className="hero-buttons hero-text-animate">
                 <button className="btn-portfolio">
                   <span>View My Portfolio</span>
                   <div className="play-icon">
@@ -895,9 +1072,19 @@ ${formData.message}`
               className="testimonials-track"
               style={{ 
                 transform: window.innerWidth <= 480 
-                  ? `translateX(calc(50% - 140px - ${currentTestimonial * (280 + 16)}px))` 
-                  : `translateX(${(1 - currentTestimonial) * (670 + 32)}px)`
+                  ? `translateX(calc(50% - 140px - ${currentTestimonial * (280 + 16)}px + ${dragOffset}px))` 
+                  : `translateX(calc(${(1 - currentTestimonial) * (670 + 32)}px + ${dragOffset}px))`,
+                transition: isDragging ? 'none' : 'transform 0.5s ease-in-out',
+                cursor: isDragging ? 'grabbing' : 'grab',
+                userSelect: 'none'
               }}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseLeave}
             >
               <div className={`testimonial-card ${currentTestimonial === 0 ? 'active' : ''}`}>
                 <div className="testimonial-rating">
