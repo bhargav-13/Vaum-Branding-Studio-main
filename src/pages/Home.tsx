@@ -12,6 +12,67 @@ const Home: React.FC = () => {
     sketch: 0
   })
 
+  // Form state for WhatsApp integration
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    interest: '',
+    budget: '',
+    country: '',
+    message: ''
+  })
+
+  // Handle form input changes
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
+    setFormData(prev => ({ ...prev, [name]: value }))
+  }
+
+  // Handle WhatsApp form submission
+  const handleWhatsAppSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    
+    // Validate required fields
+    if (!formData.name || !formData.email || !formData.phone || !formData.interest || !formData.budget || !formData.country || !formData.message) {
+      alert('Please fill in all required fields')
+      return
+    }
+
+    // Format message for WhatsApp
+    const whatsappMessage = `*New Contact Form Submission*
+
+*Name:* ${formData.name}
+*Email:* ${formData.email}
+*Phone:* ${formData.phone}
+*Interest:* ${formData.interest}
+*Budget:* ${formData.budget}
+*Country:* ${formData.country}
+
+*Message:*
+${formData.message}`
+
+    // WhatsApp number (remove + and spaces)
+    const whatsappNumber = '919727344394'
+    
+    // Create WhatsApp URL
+    const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`
+    
+    // Open WhatsApp in new tab
+    window.open(whatsappURL, '_blank')
+    
+    // Reset form
+    setFormData({
+      name: '',
+      email: '',
+      phone: '',
+      interest: '',
+      budget: '',
+      country: '',
+      message: ''
+    })
+  }
+
   const nextTestimonial = () => {
     setCurrentTestimonial((prev) => (prev + 1) % totalTestimonials)
   }
@@ -711,62 +772,104 @@ const Home: React.FC = () => {
           </div>
 
           <div className="contact-cta-right">
-            <form className="contact-cta-form" onSubmit={(e) => e.preventDefault()}>
+            <form className="contact-cta-form" onSubmit={handleWhatsAppSubmit}>
               <div className="form-grid-two">
                 <div className="form-field animate-child">
                   <label>Your Name*</label>
-                  <input type="text" placeholder="Ex. Darshil Patel" required />
+                  <input 
+                    type="text" 
+                    name="name"
+                    placeholder="Ex. Darshil Patel" 
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required 
+                  />
                 </div>
                 <div className="form-field animate-child">
                   <label>Email*</label>
-                  <input type="email" placeholder="Example@gmail.com" required />
+                  <input 
+                    type="email" 
+                    name="email"
+                    placeholder="Example@gmail.com" 
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required 
+                  />
                 </div>
                 <div className="form-field animate-child">
                   <label>Phone*</label>
-                  <input type="tel" placeholder="Enter Phone Number" required />
+                  <input 
+                    type="tel" 
+                    name="phone"
+                    placeholder="Enter Phone Number" 
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required 
+                  />
                 </div>
                 <div className="form-field animate-child">
                   <label>I'm Interested in*</label>
-                  <select defaultValue="">
+                  <select 
+                    name="interest"
+                    value={formData.interest}
+                    onChange={handleInputChange}
+                    required
+                  >
                     <option value="" disabled>Select</option>
-                    <option>Branding</option>
-                    <option>Website Design</option>
-                    <option>Application Design</option>
-                    <option>Logo Design</option>
-                    <option>Other</option>
+                    <option value="Branding">Branding</option>
+                    <option value="Website Design">Website Design</option>
+                    <option value="Application Design">Application Design</option>
+                    <option value="Logo Design">Logo Design</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
                 <div className="form-field animate-child">
                   <label>Budget Range*</label>
-                  <select defaultValue="">
+                  <select 
+                    name="budget"
+                    value={formData.budget}
+                    onChange={handleInputChange}
+                    required
+                  >
                     <option value="" disabled>Select Range</option>
-                    <option>$200 - $500</option>
-                    <option>$500 - $1000</option>
-                    <option>$1000 - $2500</option>
-                    <option>$2500+</option>
+                    <option value="$200 - $500">$200 - $500</option>
+                    <option value="$500 - $1000">$500 - $1000</option>
+                    <option value="$1000 - $2500">$1000 - $2500</option>
+                    <option value="$2500+">$2500+</option>
                   </select>
                 </div>
                 <div className="form-field animate-child">
                   <label>Country*</label>
-                  <select defaultValue="">
+                  <select 
+                    name="country"
+                    value={formData.country}
+                    onChange={handleInputChange}
+                    required
+                  >
                     <option value="" disabled>Select Country</option>
-                    <option>India</option>
-                    <option>United States</option>
-                    <option>United Kingdom</option>
-                    <option>Canada</option>
-                    <option>Other</option>
+                    <option value="India">India</option>
+                    <option value="United States">United States</option>
+                    <option value="United Kingdom">United Kingdom</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Other">Other</option>
                   </select>
                 </div>
               </div>
 
               <div className="form-field form-field-full animate-child">
                 <label>Your Message*</label>
-                <textarea placeholder="Enter here..." required></textarea>
+                <textarea 
+                  name="message"
+                  placeholder="Enter here..." 
+                  value={formData.message}
+                  onChange={handleInputChange}
+                  required
+                ></textarea>
               </div>
             </form>
           </div>
           <div className="contact-cta-actions">
-            <button className="btn-submit-contact animate-child" type="button">
+            <button className="btn-submit-contact animate-child" type="submit" onClick={handleWhatsAppSubmit}>
               <span>Submit</span>
               <div className="btn-submit-icon">
                 <img src="/bullet-point.gif" alt="Submit" className="btn-submit-bullet" />
