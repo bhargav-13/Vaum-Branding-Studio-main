@@ -94,6 +94,22 @@ ${formData.message}`
     setCurrentTestimonial((prev) => (prev - 1 + totalTestimonials) % totalTestimonials)
   }
 
+  // Handle scroll to services section
+  const scrollToServices = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault()
+    const servicesSection = document.getElementById('services-section')
+    if (servicesSection) {
+      const offset = 80 // Small offset for better visibility
+      const elementPosition = servicesSection.getBoundingClientRect().top
+      const offsetPosition = elementPosition + window.pageYOffset - offset
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
+    }
+  }
+
   // Swipe/Drag handlers
   const handleStart = (clientX: number) => {
     setIsDragging(true)
@@ -711,7 +727,7 @@ ${formData.message}`
       </section>
 
       {/* Services Cards Section */}
-      <section className="services-cards-section scroll-animate">
+      <section id="services-section" className="services-cards-section scroll-animate">
         <div className="services-cards-container">
           <div className="services-cards-header animate-child">
             <div className="services-cards-title-group">
@@ -819,7 +835,7 @@ ${formData.message}`
               </div>
             </div>
             <div className="about-cta">
-              <button className="btn-about-services">
+              <button className="btn-about-services" onClick={scrollToServices}>
                 <span>View All Services</span>
                 <div className="btn-about-icon">
                   <img src="/bullet-point.gif" alt="View All" className="btn-about-bullet" />

@@ -30,6 +30,41 @@ body {
   min-height: 100vh;
   background-color: #ffffff;
   overflow-x: hidden;
+  /* Prevent text selection cursor on body */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Allow text selection only for form elements and links */
+body input,
+body textarea,
+body select,
+body button,
+body a,
+[contenteditable="true"] {
+  user-select: auto;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+}
+
+/* Prevent focus outline on sections */
+section:focus,
+div:focus:not(input):not(textarea):not(select):not(button):not(a) {
+  outline: none;
+}
+
+/* Prevent cursor on sections */
+section {
+  cursor: default;
+}
+
+/* Ensure buttons and links show pointer cursor */
+button,
+a {
+  cursor: pointer;
 }
 
 #root {
