@@ -1,6 +1,33 @@
 .home {
   min-height: 100vh;
   margin-left: -100px;
+  /* Prevent text selection and cursor on home page */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Allow text selection only for inputs, textareas, and links */
+.home input,
+.home textarea,
+.home select,
+.home button,
+.home a {
+  user-select: auto;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
+}
+
+/* Prevent focus outline on sections */
+.home section:focus {
+  outline: none;
+}
+
+/* Prevent cursor on sections */
+.home section {
+  cursor: default;
 }
 
 /* Scroll Animation Styles - Enhanced with smoother effects */
@@ -12,6 +39,34 @@
               transform 1s cubic-bezier(0.25, 0.46, 0.45, 0.94),
               filter 0.8s ease-out;
   will-change: opacity, transform, filter;
+  /* Prevent text selection and cursor on sections */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
+}
+
+.scroll-animate:focus {
+  outline: none;
+}
+
+.scroll-animate * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.scroll-animate input,
+.scroll-animate textarea,
+.scroll-animate select,
+.scroll-animate button,
+.scroll-animate a {
+  user-select: auto;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
 }
 
 .scroll-animate.animate-in {
@@ -151,6 +206,34 @@
   align-items: center;
   opacity: 1 !important;
   transform: none !important;
+  /* Prevent text selection and cursor on hero section */
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  cursor: default;
+}
+
+.hero:focus {
+  outline: none;
+}
+
+.hero * {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+.hero input,
+.hero textarea,
+.hero select,
+.hero button,
+.hero a {
+  user-select: auto;
+  -webkit-user-select: auto;
+  -moz-user-select: auto;
+  -ms-user-select: auto;
 }
 
 /* Hero text and button animations */
