@@ -1,8 +1,34 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { NavLink, Link } from 'react-router-dom'
 import './Header.css'
 
 const Header: React.FC = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isHidden, setIsHidden] = useState(false)
+
+  // Compact header once scrolled; slide it away while scrolling down, bring it back on scroll up
+  useEffect(() => {
+    let lastY = window.scrollY
+    let frame = 0
+    const update = () => {
+      frame = 0
+      const y = window.scrollY
+      setIsScrolled(y > 40)
+      if (Math.abs(y - lastY) > 6) {
+        setIsHidden(y > lastY && y > 320)
+        lastY = y
+      }
+    }
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', onScroll)
+      cancelAnimationFrame(frame)
+    }
+  }, [])
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen)
@@ -17,45 +43,45 @@ const Header: React.FC = () => {
   }
 
   return (
-    <header className="header">
+    <header className={`header${isScrolled ? ' is-scrolled' : ''}${isHidden && !isMobileMenuOpen ? ' is-hidden' : ''}`}>
       <div className="header-container">
         {/* Desktop Navigation */}
         <nav className="nav-left">
-          <a href="/" className="nav-link" onClick={handleLinkClick}>
+          <NavLink to="/" end className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             <img src="/Vecto1r.svg" alt="Home" className="home-icon" />
-          </a>
-          <a href="/services" className="nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/services" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Services
-          </a>
-          <a href="/about" className="nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             About
-          </a>
+          </NavLink>
         </nav>
 
         {/* Center Logo */}
-        <a href="/" className="logo" onClick={handleLinkClick}>
+        <Link to="/" className="logo" onClick={handleLinkClick}>
           <img src="/Logo.svg" alt="VAUM" className="logo-img desktop-logo" />
           <img src="/mobile-logoo.svg" alt="VAUM" className="logo-img mobile-logo" />
-        </a>
+        </Link>
 
         {/* Desktop Right Navigation */}
         <nav className="nav-right">
-          <a href="/projects" className="nav-link" onClick={handleLinkClick}>
+          <NavLink to="/projects" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Projects
-          </a>
-          <a href="/blogs" className="nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/blogs" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Blogs
-          </a>
-          <a href="/testimonials" className="nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/testimonials" className={({ isActive }) => `nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Testimonials
-          </a>
+          </NavLink>
         </nav>
 
         {/* Desktop Contact Button */}
         <div className="header-actions">
-          <a href="/#contact" className="contact-btn" onClick={handleLinkClick}>
+          <NavLink to="/contact" className={({ isActive }) => `contact-btn${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Contact Me
-          </a>
+          </NavLink>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -73,27 +99,27 @@ const Header: React.FC = () => {
       {/* Mobile Menu */}
       <div className={`mobile-menu ${isMobileMenuOpen ? 'mobile-menu-open' : ''}`}>
         <nav className="mobile-nav">
-          <a href="/" className="mobile-nav-link" onClick={handleLinkClick}>
+          <NavLink to="/" end className={({ isActive }) => `mobile-nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Home
-          </a>
-          <a href="/services" className="mobile-nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/services" className={({ isActive }) => `mobile-nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Services
-          </a>
-          <a href="/about" className="mobile-nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/about" className={({ isActive }) => `mobile-nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             About
-          </a>
-          <a href="/projects" className="mobile-nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/projects" className={({ isActive }) => `mobile-nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Projects
-          </a>
-          <a href="/blogs" className="mobile-nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/blogs" className={({ isActive }) => `mobile-nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Blogs
-          </a>
-          <a href="/testimonials" className="mobile-nav-link" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/testimonials" className={({ isActive }) => `mobile-nav-link${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Testimonials
-          </a>
-          <a href="/#contact" className="mobile-nav-link mobile-contact-btn" onClick={handleLinkClick}>
+          </NavLink>
+          <NavLink to="/contact" className={({ isActive }) => `mobile-nav-link mobile-contact-btn${isActive ? ' active' : ''}`} onClick={handleLinkClick}>
             Contact Me
-          </a>
+          </NavLink>
         </nav>
       </div>
     </header>

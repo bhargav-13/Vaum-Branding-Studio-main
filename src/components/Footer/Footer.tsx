@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import './Footer.css'
 
 const Footer: React.FC = () => {
@@ -40,7 +41,8 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="footer scroll-animate">
-      <div className="footer-wrap">
+      {/* Content drifts up from "beneath" the page as the footer scrolls in */}
+      <div className="footer-wrap" data-parallax="0.3" data-parallax-mode="reveal">
         {/* Heading */}
         <h2 className="footer-heading animate-child">Let's <span className="accent">Connect</span> there</h2>
 
@@ -82,11 +84,13 @@ const Footer: React.FC = () => {
             <div className="footer-col animate-child">
               <h4 className="col-title">Navigation</h4>
               <ul className="col-list">
-                <li><a href="/">Home</a></li>
-                <li><a href="/services">Services</a></li>
-                <li><a href="/about">About</a></li>
-                <li><a href="/projects">Projects</a></li>
-                <li><a href="/blogs">Blogs</a></li>
+                <li><Link to="/">Home</Link></li>
+                <li><Link to="/services">Services</Link></li>
+                <li><Link to="/about">About</Link></li>
+                <li><Link to="/projects">Projects</Link></li>
+                <li><Link to="/blogs">Blogs</Link></li>
+                <li><Link to="/testimonials">Testimonials</Link></li>
+                <li><Link to="/contact">Contact</Link></li>
               </ul>
             </div>
             <div className="footer-col animate-child">
@@ -116,6 +120,16 @@ const Footer: React.FC = () => {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Giant wordmark: letters rise in, then fill on hover */}
+      <div className="footer-giant" aria-hidden="true">
+        {'VAUM'.split('').map((c, i) => (
+          <span key={i} style={{ '--i': i } as React.CSSProperties}>
+            {c}
+          </span>
+        ))}
+        <i className="footer-giant-star" />
       </div>
 
       {/* Bottom bar */}

@@ -191,3 +191,96 @@
   }
 }
 
+
+/* ---------- Glitch 404 + drifting stars ---------- */
+.not-found-page {
+  position: relative;
+  overflow: hidden;
+}
+
+.nf-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.nf-stars span {
+  position: absolute;
+  background: #45212B;
+  opacity: 0.18;
+  -webkit-mask: url('/octicon_north-star-24.svg') center / contain no-repeat;
+  mask: url('/octicon_north-star-24.svg') center / contain no-repeat;
+  animation: nfDrift linear infinite alternate;
+}
+
+@keyframes nfDrift {
+  from { transform: translate(0, 0) rotate(0deg); }
+  to { transform: translate(30px, -40px) rotate(180deg); }
+}
+
+.nf-glitch {
+  position: relative;
+  display: inline-block;
+  animation: nfFloat 4s ease-in-out infinite;
+}
+
+.nf-glitch::before,
+.nf-glitch::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  background: inherit;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.nf-glitch::before {
+  background-image: linear-gradient(135deg, #8A4B5C, #E5DBAB);
+  animation: nfGlitchA 2.6s infinite steps(1);
+}
+
+.nf-glitch::after {
+  background-image: linear-gradient(135deg, #2E1A20, #45212B);
+  animation: nfGlitchB 2.6s infinite steps(1);
+}
+
+@keyframes nfGlitchA {
+  0%, 82%, 100% { clip-path: inset(100% 0 0 0); transform: none; }
+  84% { clip-path: inset(10% 0 60% 0); transform: translate(-6px, 0); }
+  88% { clip-path: inset(55% 0 20% 0); transform: translate(5px, 0); }
+  92% { clip-path: inset(30% 0 45% 0); transform: translate(-3px, 0); }
+}
+
+@keyframes nfGlitchB {
+  0%, 84%, 100% { clip-path: inset(100% 0 0 0); transform: none; }
+  86% { clip-path: inset(65% 0 5% 0); transform: translate(6px, 0); }
+  90% { clip-path: inset(15% 0 70% 0); transform: translate(-5px, 0); }
+  94% { clip-path: inset(40% 0 35% 0); transform: translate(3px, 0); }
+}
+
+@keyframes nfFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.not-found-content > * {
+  animation: nfRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.not-found-content > :nth-child(2) { animation-delay: 0.12s; }
+.not-found-content > :nth-child(3) { animation-delay: 0.24s; }
+.not-found-content > :nth-child(4) { animation-delay: 0.36s; }
+
+.not-found-content > .nf-glitch {
+  animation: nfRise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both, nfFloat 4s ease-in-out 0.9s infinite;
+}
+
+@keyframes nfRise {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nf-stars span, .nf-glitch, .nf-glitch::before, .nf-glitch::after, .not-found-content > * { animation: none !important; }
+}

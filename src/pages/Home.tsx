@@ -1,9 +1,49 @@
 import React, { useEffect, useState, useRef } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { introRemaining } from '../components/SiteEffects/SiteEffects'
+import { tiltHandlers } from '../hooks/useReveal'
+import { ScrollStatement, WorkGallery, ProcessStack, BentoGrid } from '../components/Showcase/Showcase'
 import './Home.css'
 
+// Repeated enough times to fill wide screens for the seamless marquee loop
+const MARQUEE_ITEMS = Array.from({ length: 7 }).flatMap(() => [
+  'Website Design',
+  'Application Design',
+  'Logo Design',
+  'Brochure Design',
+])
+
+/** Pointer position over the hero drives the layered depth of the photo, badges and ring */
+const heroDepth = (e: React.MouseEvent<HTMLElement>) => {
+  const r = e.currentTarget.getBoundingClientRect()
+  e.currentTarget.style.setProperty('--hx', ((e.clientX - r.left) / r.width - 0.5).toFixed(3))
+  e.currentTarget.style.setProperty('--hy', ((e.clientY - r.top) / r.height - 0.5).toFixed(3))
+}
+
+const heroDepthReset = (e: React.MouseEvent<HTMLElement>) => {
+  e.currentTarget.style.setProperty('--hx', '0')
+  e.currentTarget.style.setProperty('--hy', '0')
+}
+
+/** Ring around a tool logo that fills to the animated percentage */
+const ToolRing: React.FC<{ value: number }> = ({ value }) => (
+  <svg className="tool-ring" viewBox="0 0 100 100" aria-hidden="true">
+    <circle cx="50" cy="50" r="47" pathLength={100} className="tool-ring-track" />
+    <circle cx="50" cy="50" r="47" pathLength={100} className="tool-ring-fill" style={{ strokeDashoffset: 100 - value }} />
+  </svg>
+)
+
 const Home: React.FC = () => {
+  const navigate = useNavigate()
   const [currentTestimonial, setCurrentTestimonial] = useState(1)
   const totalTestimonials = 3
+  const [isSmallScreen, setIsSmallScreen] = useState(() => window.innerWidth <= 480)
+
+  useEffect(() => {
+    const onResize = () => setIsSmallScreen(window.innerWidth <= 480)
+    window.addEventListener('resize', onResize)
+    return () => window.removeEventListener('resize', onResize)
+  }, [])
   const [animatedPercentages, setAnimatedPercentages] = useState({
     figma: 0,
     canva: 0,
@@ -390,20 +430,21 @@ ${formData.message}`
   // Hero section animations on page load
   useEffect(() => {
     const heroElements = [
-      { selector: '.hero .greeting-box', delay: 200 },
-      { selector: '.hero .hero-title', delay: 400 },
-      { selector: '.hero .hero-description', delay: 600 },
-      { selector: '.hero .hero-buttons', delay: 800 }
+      // Start after the page-change curtain has lifted
+      { selector: '.hero .greeting-box', delay: 650 },
+      { selector: '.hero .hero-title', delay: 800 },
+      { selector: '.hero .hero-description', delay: 950 },
+      { selector: '.hero .hero-buttons', delay: 1100 }
     ]
 
-    heroElements.forEach(({ selector, delay }) => {
-      const element = document.querySelector<HTMLElement>(selector)
-      if (element) {
-        setTimeout(() => {
-          element.classList.add('hero-animate-in')
-        }, delay)
-      }
-    })
+    // On a first visit, also wait for the intro screen to lift
+    const extra = introRemaining()
+    const timers = heroElements.map(({ selector, delay }) =>
+      setTimeout(() => {
+        document.querySelector<HTMLElement>(selector)?.classList.add('hero-animate-in')
+      }, delay + extra)
+    )
+    return () => timers.forEach(clearTimeout)
   }, [])
 
   // Scroll-triggered animations for all sections with enhanced staggered child animations
@@ -477,7 +518,7 @@ ${formData.message}`
   return (
     <>
       <div className="home">
-        <section className="hero">
+        <section className="hero" onMouseMove={heroDepth} onMouseLeave={heroDepthReset}>
           <div className="hero-container">
             {/* Left Side - Text Content */}
             <div className="hero-left">
@@ -493,13 +534,13 @@ ${formData.message}`
                 Helping businesses and startups build strong visual identities through impactful design.
               </p>
               <div className="hero-buttons hero-text-animate">
-                <button className="btn-portfolio">
+                <button className="btn-portfolio" onClick={() => navigate('/projects')}>
                   <span>View My Portfolio</span>
                   <div className="play-icon">
                     <img src="/play (1).gif" alt="Play" />
                   </div>
                 </button>
-                <button className="btn-hire">
+                <button className="btn-hire" onClick={() => navigate('/contact')}>
                   Hire Me
                 </button>
               </div>
@@ -513,7 +554,7 @@ ${formData.message}`
                   <span className="hero-badge-text">Wireframe Design</span>
                 </div>
                 <div className="hero-badge hero-badge-right">
-                  <span className="hero-badge-text">website Design</span>
+                  <span className="hero-badge-text">Website Design</span>
                 </div>
                 
                 {/* Rotating HIRE ME Circle */}
@@ -547,181 +588,14 @@ ${formData.message}`
       <section className="services-section">
         <div className="services-container">
           <div className="services-bar">
-            {/* First set */}
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Website Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Application Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Logo Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Brochure Design</span>
-            </div>
-            {/* Second set for seamless loop */}
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Website Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Application Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Logo Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Brochure Design</span>
-            </div>
-            {/* Third set for continuous flow */}
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Website Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Application Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Logo Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Brochure Design</span>
-            </div>
-            {/* Fourth set for perfect loop */}
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Website Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Application Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Logo Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Brochure Design</span>
-            </div>
-            {/* Fifth set for seamless continuity */}
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Website Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Application Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Logo Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Brochure Design</span>
-            </div>
-            {/* Sixth set for perfect continuity */}
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Website Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Application Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Logo Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Brochure Design</span>
-            </div>
-            {/* Seventh set for infinite loop */}
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Website Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Application Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Logo Design</span>
-            </div>
-            <div className="service-item">
-              <span className="star-icon">
-                <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text">Brochure Design</span>
-            </div>
+            {MARQUEE_ITEMS.map((label, i) => (
+              <div className="service-item" key={i}>
+                <span className="star-icon">
+                  <img src="/octicon_north-star-24.svg" alt="" width="32" height="32" style={{ display: 'block' }} />
+                </span>
+                <span className="service-text">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -737,7 +611,7 @@ ${formData.message}`
               </div>
               <h2 className="services-cards-title"><i>Services</i> I Provide</h2>
             </div>
-            <button className="btn-view-all">
+            <button className="btn-view-all" onClick={() => navigate('/services')}>
               <span>View All Services</span>
               <div className="btn-view-all-icon">
                 <img src="/bullet-point.gif" alt="View All" className="btn-bullet-icon" />
@@ -746,7 +620,7 @@ ${formData.message}`
           </div>
           
           <div className="services-cards-grid">
-            <div className="service-card animate-child">
+            <div className="service-card animate-child" onMouseMove={tiltHandlers.onMouseMove}>
               <div className="service-card-icon">
                 <div className="icon-circle">
                   <img src="/computer (1).gif" alt="Computer" />
@@ -756,12 +630,12 @@ ${formData.message}`
               <p className="service-card-description">
                 Creating user-friendly and visually appealing digital experiences that ...
               </p>
-              <a href="#" className="service-card-link">
+              <Link to="/services#ui-ux" className="service-card-link">
                 Learn more <span className="arrow-icon" aria-hidden="true"></span>
-              </a>
+              </Link>
             </div>
             
-            <div className="service-card animate-child">
+            <div className="service-card animate-child" onMouseMove={tiltHandlers.onMouseMove}>
               <div className="service-card-icon">
                 <div className="icon-circle">
                   <img src="/vector (1).gif" alt="Vector" />
@@ -771,12 +645,12 @@ ${formData.message}`
               <p className="service-card-description">
                 Designing intuitive and efficient mobile and desktop applications ...
               </p>
-              <a href="#" className="service-card-link">
+              <Link to="/services#application" className="service-card-link">
                 Learn more <span className="arrow-icon" aria-hidden="true"></span>
-              </a>
+              </Link>
             </div>
             
-            <div className="service-card animate-child">
+            <div className="service-card animate-child" onMouseMove={tiltHandlers.onMouseMove}>
               <div className="service-card-icon">
                 <div className="icon-circle">
                   <img src="/web-design (1).gif" alt="Web Design" />
@@ -786,9 +660,9 @@ ${formData.message}`
               <p className="service-card-description">
                 Crafting modern, responsive, and impactful websites that ...
               </p>
-              <a href="#" className="service-card-link">
+              <Link to="/services#website" className="service-card-link">
                 Learn more <span className="arrow-icon" aria-hidden="true"></span>
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -798,7 +672,7 @@ ${formData.message}`
       <section className="about-section scroll-animate">
         <div className="about-container">
             <div className="about-circle animate-child">
-              <img src="/Mask group.svg" alt="Vachika profile" />
+              <img src="/Mask group.svg" alt="Vachika profile" data-parallax="0.05" />
               
               {/* Design Badges */}
               <div className="about-badge about-badge-1">Website Design</div>
@@ -847,6 +721,9 @@ ${formData.message}`
         </div>
       </section>
 
+      {/* Scroll-lit philosophy statement */}
+      <ScrollStatement />
+
       {/* Favorite Tools Section */}
       <section className="tools-section scroll-animate">
         <div className="tools-container">
@@ -867,6 +744,7 @@ ${formData.message}`
             <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
+                  <ToolRing value={animatedPercentages.figma} />
                   <img src="/devicon_figma.jpg" alt="Figma" />
                 </div>
                 <div className="tool-percentage">{animatedPercentages.figma}%</div>
@@ -877,6 +755,7 @@ ${formData.message}`
             <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
+                  <ToolRing value={animatedPercentages.canva} />
                   <img src="/devicon_canva.jpg" alt="Canva" />
                 </div>
                 <div className="tool-percentage">{animatedPercentages.canva}%</div>
@@ -887,6 +766,7 @@ ${formData.message}`
             <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
+                  <ToolRing value={animatedPercentages.photoshop} />
                   <img src="/photoshop.jpg" alt="Photoshop" />
                 </div>
                 <div className="tool-percentage">{animatedPercentages.photoshop}%</div>
@@ -897,6 +777,7 @@ ${formData.message}`
             <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
+                  <ToolRing value={animatedPercentages.invision} />
                   <img src="/logos_invision-icon.jpg" alt="InVision" />
                 </div>
                 <div className="tool-percentage">{animatedPercentages.invision}%</div>
@@ -907,6 +788,7 @@ ${formData.message}`
             <div className="tool-card animate-child">
               <div className="tool-oval">
                 <div className="tool-logo-circle">
+                  <ToolRing value={animatedPercentages.sketch} />
                   <img src="/devicon_sketch.jpg" alt="Sketch" />
                 </div>
                 <div className="tool-percentage">{animatedPercentages.sketch}%</div>
@@ -916,6 +798,11 @@ ${formData.message}`
           </div>
         </div>
       </section>
+
+      {/* Pinned horizontal gallery, stacking process and bento */}
+      <WorkGallery />
+      <ProcessStack />
+      <BentoGrid />
 
       {/* Contact Section */}
       <section id="contact" className="contact-cta-section scroll-animate">
@@ -1086,8 +973,9 @@ ${formData.message}`
           <div className="testimonials-carousel">
             <div 
               className="testimonials-track"
+              data-cursor="Drag"
               style={{ 
-                transform: window.innerWidth <= 480 
+                transform: isSmallScreen 
                   ? `translateX(calc(50% - 140px - ${currentTestimonial * (280 + 16)}px + ${dragOffset}px))` 
                   : `translateX(calc(${(1 - currentTestimonial) * (670 + 32)}px + ${dragOffset}px))`,
                 transition: isDragging ? 'none' : 'transform 0.5s ease-in-out',
@@ -1172,181 +1060,14 @@ ${formData.message}`
       <section className="services-section-2">
         <div className="services-container-2">
           <div className="services-bar-2">
-            {/* First set */}
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Website Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Application Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Logo Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Brochure Design</span>
-            </div>
-            {/* Second set for seamless loop */}
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Website Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Application Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Logo Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Brochure Design</span>
-            </div>
-            {/* Third set for continuous flow */}
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Website Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Application Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Logo Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Brochure Design</span>
-            </div>
-            {/* Fourth set for perfect loop */}
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Website Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Application Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Logo Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Brochure Design</span>
-            </div>
-            {/* Fifth set for seamless continuity */}
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Website Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Application Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Logo Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Brochure Design</span>
-            </div>
-            {/* Sixth set for perfect continuity */}
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Website Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Application Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Logo Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Brochure Design</span>
-            </div>
-            {/* Seventh set for infinite loop */}
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Website Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Application Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Logo Design</span>
-            </div>
-            <div className="service-item-2">
-              <span className="star-icon-2">
-                <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
-              </span>
-              <span className="service-text-2">Brochure Design</span>
-            </div>
+            {MARQUEE_ITEMS.map((label, i) => (
+              <div className="service-item-2" key={i}>
+                <span className="star-icon-2">
+                  <img src="/octicon_north-star-24.svg" alt="" width="38" height="38" style={{ display: 'block' }} />
+                </span>
+                <span className="service-text-2">{label}</span>
+              </div>
+            ))}
           </div>
         </div>
       </section>

@@ -4686,3 +4686,200 @@
   }
 }
 
+
+/* ==========================================================================
+   Tablet / laptop fixes (769px – 1300px)
+   The desktop layout nudges .home 100px left, which pushed the hero text
+   off-screen on narrower windows. Only nudge as far as the free margin allows.
+   ========================================================================== */
+@media (min-width: 769px) {
+  .home {
+    margin-left: max(-100px, min(0px, calc(-16px - (100vw - 1200px) / 2)));
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+  .hero-left {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .hero-buttons {
+    justify-content: center;
+  }
+}
+
+/* Services cards: the desktop -75px bleed only fits when the window has spare margin */
+@media (min-width: 769px) and (max-width: 1300px) {
+  .services-cards-section {
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+/* Contact band: true full-bleed cream strip instead of a fixed 1325px box,
+   so it lines up on every screen above phone size */
+@media (min-width: 481px) {
+  .contact-cta-section {
+    min-width: 0;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding-left: clamp(1.5rem, 5vw, 4rem);
+    padding-right: clamp(1.5rem, 5vw, 4rem);
+  }
+
+  .contact-cta-container {
+    max-width: 1200px;
+  }
+}
+
+@media (min-width: 481px) and (max-width: 1024px) {
+  .contact-cta-left {
+    max-width: 100%;
+    padding-right: 0;
+    margin-top: 0;
+  }
+}
+
+/* Service cards: the desktop 380px minimum can't fit three across below ~1300px */
+@media (min-width: 769px) and (max-width: 1300px) {
+  .service-card {
+    min-width: 0;
+  }
+}
+
+/* The services strips always sit above the hero photo (whose box has z-index 2),
+   so the photo never paints over the maroon line */
+.services-section,
+.services-section-2 {
+  position: relative;
+  z-index: 3;
+}
+
+/* ==========================================================================
+   Extra motion
+   ========================================================================== */
+
+/* Hero: layered depth that follows the pointer (uses `translate`, so existing transforms keep working) */
+.hero .image-container,
+.hero .hero-badge,
+.hero .hire-circle {
+  transition: translate 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero .image-container { translate: calc(var(--hx, 0) * -18px) calc(var(--hy, 0) * -12px); }
+.hero .hero-badge-left { translate: calc(var(--hx, 0) * 46px) calc(var(--hy, 0) * 30px); }
+.hero .hero-badge-right { translate: calc(var(--hx, 0) * 60px) calc(var(--hy, 0) * -36px); }
+.hero .hire-circle { translate: calc(var(--hx, 0) * -40px) calc(var(--hy, 0) * 40px); }
+
+/* Service cards: a soft light follows the cursor */
+.service-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.service-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(280px circle at var(--mx, 50%) var(--my, 50%), rgba(237, 232, 208, 0.85), transparent 65%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.service-card:hover::before {
+  opacity: 1;
+}
+
+/* Tools: progress ring around each logo, driven by the count-up percentage */
+.tool-logo-circle {
+  position: relative;
+}
+
+.tool-ring {
+  position: absolute;
+  inset: -9px;
+  width: calc(100% + 18px);
+  height: calc(100% + 18px);
+  transform: rotate(-90deg);
+  pointer-events: none;
+}
+
+.tool-ring circle {
+  fill: none;
+  stroke-width: 3;
+}
+
+.tool-ring-track {
+  stroke: rgba(69, 33, 43, 0.1);
+}
+
+.tool-ring-fill {
+  stroke: #45212B;
+  stroke-linecap: round;
+  stroke-dasharray: 100;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero .image-container, .hero .hero-badge, .hero .hire-circle { translate: none; }
+}
+
+/* ==========================================================================
+   "Hello There!" selection box — all four corner handles drawn by ONE layer
+   that is anchored to the box itself, so they always sit exactly on the
+   corners at every screen size (replaces the old per-breakpoint offsets).
+   ========================================================================== */
+.hero .greeting-box {
+  --handle-w: 14px;
+  --handle-h: 10px;
+  position: relative;
+  box-shadow: 0 2px 4px rgba(69, 33, 43, 0.1) !important;
+}
+
+/* Remove the old hand-positioned handles */
+.hero .greeting-box::after,
+.hero .greeting-box span::before,
+.hero .greeting-box span::after {
+  content: none !important;
+  display: none !important;
+}
+
+.hero .greeting-box::before {
+  content: '' !important;
+  position: absolute !important;
+  /* centre each handle on the 2px border line */
+  top: calc(var(--handle-h) / -2 - 1px) !important;
+  bottom: calc(var(--handle-h) / -2 - 1px) !important;
+  left: calc(var(--handle-w) / -2 - 1px) !important;
+  right: calc(var(--handle-w) / -2 - 1px) !important;
+  width: auto !important;
+  height: auto !important;
+  border: none !important;
+  pointer-events: none;
+  --handle: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='10' viewBox='0 0 14 10'%3E%3Crect x='1' y='1' width='12' height='8' fill='%23EDE8D0' stroke='%2345212B' stroke-width='2'/%3E%3C/svg%3E");
+  background:
+    var(--handle) left top / var(--handle-w) var(--handle-h) no-repeat,
+    var(--handle) right top / var(--handle-w) var(--handle-h) no-repeat,
+    var(--handle) left bottom / var(--handle-w) var(--handle-h) no-repeat,
+    var(--handle) right bottom / var(--handle-w) var(--handle-h) no-repeat !important;
+  transition: inset 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Handles pull outward a touch on hover, like a design tool's selection */
+.hero .greeting-box:hover::before {
+  top: calc(var(--handle-h) / -2 - 4px) !important;
+  bottom: calc(var(--handle-h) / -2 - 4px) !important;
+  left: calc(var(--handle-w) / -2 - 4px) !important;
+  right: calc(var(--handle-w) / -2 - 4px) !important;
+}
+
+@media (max-width: 768px) {
+  .hero .greeting-box {
+    --handle-w: 11px;
+    --handle-h: 8px;
+  }
+}

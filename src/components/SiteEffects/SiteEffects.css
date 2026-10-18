@@ -1,0 +1,378 @@
+/* ---------- Page-change curtain ---------- */
+.vp-curtain {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.vp-curtain-layer {
+  position: absolute;
+  inset: 0;
+  will-change: transform;
+  animation: vpCurtainLift 0.85s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.vp-curtain-maroon {
+  background: #45212B;
+  display: grid;
+  place-items: center;
+  animation-delay: 0.15s;
+  border-radius: 0 0 50% 50% / 0 0 0 0;
+  animation-name: vpCurtainLiftCurve;
+}
+
+.vp-curtain-cream {
+  background: #EDE8D0;
+  animation-delay: 0.27s;
+}
+
+.vp-curtain-star {
+  width: 46px;
+  height: 46px;
+  background: #EDE8D0;
+  -webkit-mask: url('/octicon_north-star-24.svg') center / contain no-repeat;
+  mask: url('/octicon_north-star-24.svg') center / contain no-repeat;
+  animation: vpCurtainStar 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes vpCurtainLift {
+  from { transform: translateY(0); }
+  to { transform: translateY(-100%); }
+}
+
+/* The maroon layer bends at its bottom edge as it lifts */
+@keyframes vpCurtainLiftCurve {
+  0% { transform: translateY(0); border-radius: 0; }
+  50% { border-radius: 0 0 50% 50% / 0 0 18vh 18vh; }
+  100% { transform: translateY(-100%); border-radius: 0 0 50% 50% / 0 0 0 0; }
+}
+
+@keyframes vpCurtainStar {
+  from { transform: scale(0.4) rotate(-90deg); opacity: 0; }
+  to { transform: scale(1) rotate(0); opacity: 1; }
+}
+
+/* ---------- Scroll progress ---------- */
+.vp-scrollbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 1200;
+  background: linear-gradient(90deg, #45212B, #8a4b5c, #E5DBAB);
+  transform: scaleX(0);
+  transform-origin: left;
+  pointer-events: none;
+}
+
+/* ---------- Back to top ---------- */
+.vp-totop {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 900;
+  width: 54px;
+  height: 54px;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 10px 26px rgba(69, 33, 43, 0.22);
+  display: grid;
+  place-items: center;
+  opacity: 0;
+  transform: translateY(24px) scale(0.8);
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.3s;
+}
+
+.vp-totop.show {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.vp-totop > * {
+  grid-area: 1 / 1;
+}
+
+.vp-totop svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.vp-totop-track {
+  fill: none;
+  stroke: rgba(69, 33, 43, 0.12);
+  stroke-width: 3;
+}
+
+.vp-totop-fill {
+  fill: none;
+  stroke: #45212B;
+  stroke-width: 3;
+  stroke-linecap: round;
+}
+
+.vp-totop-arrow {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #45212B;
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vp-totop:hover {
+  background: #EDE8D0;
+}
+
+.vp-totop:hover .vp-totop-arrow {
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-curtain, .vp-intro { display: none; }
+}
+
+@media (max-width: 600px) {
+  .vp-totop { right: 1rem; bottom: 1rem; width: 46px; height: 46px; }
+}
+
+/* ---------- First-visit intro ---------- */
+.vp-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: #45212B;
+  color: #EDE8D0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  pointer-events: none;
+  animation: vpIntroLift 0.95s cubic-bezier(0.76, 0, 0.24, 1) 1.5s forwards;
+}
+
+.vp-intro-word {
+  display: flex;
+  gap: 0.04em;
+  font-family: 'Port Lligat Sans', 'Poppins', sans-serif;
+  font-size: clamp(4rem, 16vw, 11rem);
+  line-height: 1;
+  letter-spacing: 0.04em;
+  overflow: hidden;
+  padding: 0 0.1em 0.08em;
+}
+
+.vp-intro-word span {
+  display: inline-block;
+  transform: translateY(110%);
+  animation: vpIntroLetter 0.9s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.vp-intro-tag {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: vpIntroFade 0.8s ease 0.55s forwards;
+}
+
+.vp-intro-meter {
+  width: min(260px, 60vw);
+  height: 2px;
+  margin-top: 1.4rem;
+  background: rgba(237, 232, 208, 0.2);
+  overflow: hidden;
+}
+
+.vp-intro-meter span {
+  display: block;
+  height: 100%;
+  background: #E5DBAB;
+  transform-origin: left;
+}
+
+.vp-intro-count {
+  position: absolute;
+  right: clamp(1.2rem, 4vw, 3rem);
+  bottom: clamp(1rem, 4vw, 2.5rem);
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.5rem, 8vw, 5rem);
+  font-weight: 300;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
+@keyframes vpIntroLetter { to { transform: none; } }
+@keyframes vpIntroFade { to { opacity: 0.8; } }
+@keyframes vpIntroLift {
+  0% { transform: translateY(0); border-radius: 0; }
+  60% { border-radius: 0 0 50% 50% / 0 0 22vh 22vh; }
+  100% { transform: translateY(-105%); border-radius: 0 0 50% 50% / 0 0 0 0; }
+}
+
+/* ---------- Custom cursor (mouse only) ---------- */
+.vp-cursor-dot,
+.vp-cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10001;
+  pointer-events: none;
+  display: none;
+}
+
+.vp-has-cursor .vp-cursor-dot,
+.vp-has-cursor .vp-cursor-ring {
+  display: block;
+}
+
+.vp-has-cursor,
+.vp-has-cursor body,
+.vp-has-cursor a,
+.vp-has-cursor button,
+.vp-has-cursor select,
+.vp-has-cursor label,
+.vp-has-cursor [role='tab'] {
+  cursor: none !important;
+}
+
+.vp-cursor-dot {
+  width: 8px;
+  height: 8px;
+  margin: -4px 0 0 -4px;
+  border-radius: 50%;
+  background: #45212B;
+  /* cream halo keeps it visible over maroon sections */
+  box-shadow: 0 0 0 1.5px rgba(237, 232, 208, 0.9);
+  transition: opacity 0.3s ease;
+}
+
+.vp-cursor-ring {
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+}
+
+/* Visual circle lives on a pseudo so size changes don't fight the JS transform */
+.vp-cursor-ring::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 1.5px solid rgba(69, 33, 43, 0.55);
+  box-shadow: 0 0 0 1px rgba(237, 232, 208, 0.5);
+  transition:
+    transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.35s ease,
+    border-color 0.35s ease,
+    opacity 0.3s ease;
+}
+
+.vp-cursor-ring.is-hover::before {
+  transform: scale(1.7);
+  background: rgba(237, 232, 208, 0.45);
+  border-color: rgba(69, 33, 43, 0.25);
+}
+
+.vp-cursor-ring.is-label::before {
+  transform: scale(2.3);
+  background: #45212B;
+  border-color: #45212B;
+}
+
+.vp-cursor-ring.is-text::before {
+  opacity: 0;
+}
+
+.vp-cursor-ring.is-down::before {
+  transform: scale(0.8);
+}
+
+.vp-cursor-ring.is-hover.is-down::before {
+  transform: scale(1.4);
+}
+
+.vp-cursor-label {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #EDE8D0;
+  opacity: 0;
+  transform: scale(0.6);
+  transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.vp-cursor-ring.is-label .vp-cursor-label {
+  opacity: 1;
+  transform: none;
+}
+
+.vp-has-cursor:has(.vp-cursor-ring.is-label) .vp-cursor-dot,
+.vp-cursor-out .vp-cursor-dot,
+.vp-cursor-out .vp-cursor-ring {
+  opacity: 0;
+}
+
+/* ---------- Click burst ---------- */
+.vp-burst {
+  position: fixed;
+  z-index: 10002;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
+
+.vp-burst i {
+  position: absolute;
+  left: -3px;
+  top: -3px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #45212B;
+  animation: vpBurst 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.vp-burst i:nth-child(even) {
+  background: #C9A227;
+}
+
+.vp-burst i.star {
+  left: -6px;
+  top: -6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 0;
+  background: #C9A227;
+  -webkit-mask: url('/octicon_north-star-24.svg') center / contain no-repeat;
+  mask: url('/octicon_north-star-24.svg') center / contain no-repeat;
+}
+
+@keyframes vpBurst {
+  0% { transform: translate(0, 0) scale(1) rotate(0); opacity: 1; }
+  100% { transform: translate(var(--tx), var(--ty)) scale(0) rotate(160deg); opacity: 0; }
+}
+
+/* ---------- Scroll-velocity skew on the marquee strips ---------- */
+.services-container,
+.services-container-2,
+.vp-marquee-group {
+  transform: skewX(calc(var(--vp-skew, 0) * -1deg));
+  transition: transform 0.15s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vp-cursor-dot, .vp-cursor-ring, .vp-burst { display: none !important; }
+}

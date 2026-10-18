@@ -72,6 +72,8 @@ a {
   min-height: 100vh;
   background-color: #ffffff;
   overflow-x: hidden;
+  /* clip (not hidden) so #root is not a scroll container and the sticky header works */
+  overflow-x: clip;
 }
 
 a {

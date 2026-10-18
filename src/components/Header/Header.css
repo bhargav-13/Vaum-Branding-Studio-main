@@ -373,3 +373,199 @@
     margin-top: 1rem;
   }
 }
+
+/* Animated underline for the active / hovered page link */
+.nav-link:not(:has(.home-icon))::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.15rem;
+  height: 2px;
+  border-radius: 2px;
+  background: #45212B;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.home-icon {
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.nav-link:hover .home-icon,
+.nav-link.active .home-icon {
+  transform: translateY(-2px) scale(1.12);
+}
+
+.contact-btn {
+  display: inline-block;
+}
+
+.contact-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 18px rgba(69, 33, 43, 0.25);
+}
+
+.mobile-nav-link.active {
+  font-weight: 600;
+}
+
+/* ---------- Sticky header: entrance, compact on scroll, hide on scroll down ---------- */
+.header {
+  position: sticky;
+  top: 1rem;
+  z-index: 1000;
+  transition:
+    top 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    background-color 0.4s ease;
+  /* waits for the first-visit intro when it plays */
+  animation: vpHeaderIn 0.9s cubic-bezier(0.22, 1, 0.36, 1) var(--vp-enter, 0.35s) both;
+}
+
+.header.is-scrolled {
+  box-shadow: 0 12px 30px rgba(69, 33, 43, 0.16);
+}
+
+.header.is-hidden {
+  top: -120px;
+}
+
+@keyframes vpHeaderIn {
+  from { opacity: 0; transform: translateY(-30px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* Staggered links inside the mobile drawer */
+.mobile-menu-open .mobile-nav-link {
+  animation: vpDrawerLink 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.mobile-menu-open .mobile-nav-link:nth-child(1) { animation-delay: 0.12s; }
+.mobile-menu-open .mobile-nav-link:nth-child(2) { animation-delay: 0.17s; }
+.mobile-menu-open .mobile-nav-link:nth-child(3) { animation-delay: 0.22s; }
+.mobile-menu-open .mobile-nav-link:nth-child(4) { animation-delay: 0.27s; }
+.mobile-menu-open .mobile-nav-link:nth-child(5) { animation-delay: 0.32s; }
+.mobile-menu-open .mobile-nav-link:nth-child(6) { animation-delay: 0.37s; }
+.mobile-menu-open .mobile-nav-link:nth-child(7) { animation-delay: 0.42s; }
+
+@keyframes vpDrawerLink {
+  from { opacity: 0; transform: translateX(40px); }
+  to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 768px) {
+  .header {
+    top: 0;
+  }
+
+  .header.is-scrolled {
+    background-color: rgba(255, 255, 255, 0.96);
+    box-shadow: 0 6px 20px rgba(69, 33, 43, 0.12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header,
+  .mobile-menu-open .mobile-nav-link {
+    animation: none;
+  }
+}
+
+/* ---------- Desktop nav: keep both link groups hugging the centred logo ----------
+   Positioning each group from the centre line means the links can never slide
+   under the logo, whatever the window width. */
+@media (min-width: 769px) {
+  .header {
+    --nav-gap: clamp(1.4rem, 3.6vw - 0.75rem, 4rem);
+    margin-left: clamp(1rem, 7vw - 2rem, 100px);
+    margin-right: clamp(1rem, 7vw - 2rem, 100px);
+  }
+
+  .nav-left,
+  .nav-right {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    margin: 0;
+    gap: var(--nav-gap);
+  }
+
+  .nav-left {
+    right: calc(50% + 65px + var(--nav-gap) * 0.75);
+    justify-content: flex-end;
+  }
+
+  .nav-right {
+    left: calc(50% + 65px + var(--nav-gap) * 0.75);
+  }
+}
+
+@media (min-width: 769px) and (max-width: 1100px) {
+  .nav-link {
+    font-size: 0.88rem;
+  }
+
+  .contact-btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.88rem;
+  }
+}
+
+/* Small laptops / tablets: tighten everything so the right links never meet the button */
+@media (min-width: 769px) and (max-width: 960px) {
+  .header {
+    --nav-gap: 1rem;
+  }
+
+  .logo-img {
+    height: 60px;
+    max-width: 100px;
+  }
+
+  .nav-left {
+    right: calc(50% + 50px + var(--nav-gap) * 0.75);
+  }
+
+  .nav-right {
+    left: calc(50% + 50px + var(--nav-gap) * 0.75);
+  }
+
+  .nav-link {
+    font-size: 0.82rem;
+  }
+
+  .header-container {
+    padding-left: 1.5rem;
+  }
+
+  .contact-btn {
+    padding: 0.5rem 0.9rem;
+    font-size: 0.82rem;
+  }
+}
+
+/* Below ~860px the full link row can't fit beside the logo: use the menu button instead */
+@media (min-width: 769px) and (max-width: 860px) {
+  .nav-left,
+  .nav-right,
+  .header-actions {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: flex;
+    margin-left: auto;
+    z-index: 1001;
+  }
+
+  .menu-toggle.active span:nth-child(1) { transform: rotate(-45deg) translate(-5px, 6px); }
+  .menu-toggle.active span:nth-child(2) { opacity: 0; }
+  .menu-toggle.active span:nth-child(3) { transform: rotate(45deg) translate(-5px, -6px); }
+}
