@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
-import { PageHero, Eyebrow, CtaBand, SplitTitle, d } from '../components/Shared/Shared'
+import { BigWord, PageHero, Eyebrow, CtaBand, SplitTitle, d } from '../components/Shared/Shared'
+import { QuoteStack } from '../components/HeroArt/HeroArt'
 import { TESTIMONIALS } from '../data/content'
 import { useReveal, useCountUp } from '../hooks/useReveal'
 import './Pages.css'
@@ -32,6 +33,7 @@ const Testimonials: React.FC = () => {
     <div className="vp-page">
       <PageHero
         crumb="Testimonials"
+        art={<QuoteStack />}
         eyebrow="Client Love"
         title={<>Kind words from <i>happy</i> clients</>}
         description="The best measure of my work is how clients feel about their brand after we finish. Here's what a few of them had to say."
@@ -93,6 +95,8 @@ const Testimonials: React.FC = () => {
 
       <section className="vp-section">
         <div className="vp-center-head" data-reveal>
+
+          <BigWord>Reviews</BigWord>
           <Eyebrow>All Reviews</Eyebrow>
           <SplitTitle as="h2" className="vp-h2">What it's like to <i>work</i> together</SplitTitle>
         </div>

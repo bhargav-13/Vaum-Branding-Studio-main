@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { ProjectCover, PillButton } from '../Shared/Shared'
+import { BigWord, ProjectCover, PillButton } from '../Shared/Shared'
 import { Scramble } from '../Shared/Scramble'
 import { PROJECTS, PROCESS, TESTIMONIALS } from '../../data/content'
 import { useReveal, useCountUp } from '../../hooks/useReveal'
@@ -159,7 +159,7 @@ export const WorkGallery: React.FC = () => {
           {PROJECTS.map((p, i) => (
             <Link to={`/projects/${p.slug}`} key={p.slug} className="sc-work-card vp-hover" data-cursor="View">
               <div className="sc-work-cover">
-                <ProjectCover kind={p.cover} mark={p.mark} palette={p.palette} label={`${p.client} cover`} />
+                <ProjectCover image={p.coverImage} kind={p.cover} mark={p.mark} palette={p.palette} label={`${p.client} cover`} />
               </div>
               <div className="sc-work-meta">
                 <span className="sc-work-num">{String(i + 1).padStart(2, '0')}</span>
@@ -230,6 +230,8 @@ export const ProcessStack: React.FC = () => {
   return (
     <section className="sc-stack" aria-label="How I work">
       <div className="sc-stack-head" data-reveal>
+
+        <BigWord>Process</BigWord>
         <Scramble className="sc-kicker">How I Work</Scramble>
         <h2>
           Four steps from <i>idea</i> to identity
@@ -305,6 +307,8 @@ export const BentoGrid: React.FC = () => {
   return (
     <section className="sc-bento" aria-label="Studio at a glance">
       <div className="sc-bento-head" data-reveal>
+
+        <BigWord>Studio</BigWord>
         <Scramble className="sc-kicker">At a Glance</Scramble>
         <h2>
           The studio, <i>in a nutshell</i>
@@ -324,7 +328,7 @@ export const BentoGrid: React.FC = () => {
               <span className="sc-tile-label">Local time · India</span>
               <strong className="sc-clock">{time}</strong>
             </div>
-            <PillButton to="/contact">Book a Call</PillButton>
+            <PillButton to="/start">Start a Project</PillButton>
           </div>
         </article>
 
@@ -437,6 +441,8 @@ export const ProjectIndex: React.FC = () => {
   return (
     <section className="sc-index" aria-label="Project index">
       <div className="sc-index-head" data-reveal>
+
+        <BigWord>Index</BigWord>
         <Scramble className="sc-kicker">Index</Scramble>
         <h2>
           Every project, <i>at a glance</i>
@@ -460,7 +466,7 @@ export const ProjectIndex: React.FC = () => {
       <div className={`sc-index-preview ${active !== null ? 'show' : ''}`} ref={previewRef} aria-hidden="true">
         {PROJECTS.map((p, i) => (
           <div key={p.slug} className={`sc-index-slide ${active === i ? 'on' : ''}`}>
-            <ProjectCover kind={p.cover} mark={p.mark} palette={p.palette} label="" />
+            <ProjectCover image={p.coverImage} kind={p.cover} mark={p.mark} palette={p.palette} label="" />
           </div>
         ))}
       </div>

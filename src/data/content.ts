@@ -11,8 +11,29 @@ export interface ServiceItem {
   deliverables: string[]
 }
 
+export interface GalleryImage {
+  src: string
+  caption?: string
+  /** Span the full width of the case-study grid */
+  wide?: boolean
+}
+
+/*
+ * ADDING REAL WORK
+ * Put images in public/work/<slug>/ and reference them here, e.g.
+ *   coverImage: '/work/delight-autoforge/cover.jpg',
+ *   gallery: [{ src: '/work/delight-autoforge/logo-sheet.jpg', caption: 'Logo suite', wide: true }, ...]
+ * Every card, the homepage gallery, the project index preview and the case-study page
+ * switch from the drawn placeholder art to the real images automatically.
+ */
 export interface ProjectItem {
   slug: string
+  /** Real cover image (recommended 1600×1200 or larger) */
+  coverImage?: string
+  /** Case-study images shown in the gallery + full-screen viewer */
+  gallery?: GalleryImage[]
+  /** Live site / Behance link for the project, if any */
+  link?: string
   title: string
   client: string
   category: 'Branding' | 'Website' | 'Application' | 'Print'

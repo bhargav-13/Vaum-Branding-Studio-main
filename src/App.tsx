@@ -9,6 +9,7 @@ import Blogs from './pages/Blogs'
 import BlogPost from './pages/BlogPost'
 import Testimonials from './pages/Testimonials'
 import Contact from './pages/Contact'
+import StartProject from './pages/StartProject'
 import NotFound from './pages/abcd'
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
         <Route path="/blogs/:slug" element={<BlogPost />} />
         <Route path="/testimonials" element={<Testimonials />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/start" element={<StartProject />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Layout>

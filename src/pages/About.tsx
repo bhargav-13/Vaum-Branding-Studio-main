@@ -1,5 +1,6 @@
 import React from 'react'
-import { PageHero, Eyebrow, CtaBand, PillButton, SplitTitle, d } from '../components/Shared/Shared'
+import { BigWord, PageHero, Eyebrow, CtaBand, PillButton, SplitTitle, d } from '../components/Shared/Shared'
+import { PortraitArch } from '../components/HeroArt/HeroArt'
 import { useReveal, useCountUp } from '../hooks/useReveal'
 import './Pages.css'
 
@@ -39,6 +40,7 @@ const About: React.FC = () => {
     <div className="vp-page">
       <PageHero
         crumb="About"
+        art={<PortraitArch />}
         eyebrow="About Me"
         title={<>Hi, I'm <i>Vachika Bhanderi</i></>}
         description="Graphic designer and founder of Vaum Branding Studio. I help businesses and startups build strong visual identities through thoughtful, impactful design."
@@ -67,7 +69,7 @@ const About: React.FC = () => {
             remember.
           </p>
           <div className="vp-about-actions">
-            <PillButton to="/contact">Work With Me</PillButton>
+            <PillButton to="/start">Work With Me</PillButton>
             <span className="vp-signature">Vachika Bhanderi</span>
           </div>
         </div>
@@ -87,6 +89,8 @@ const About: React.FC = () => {
 
       <section className="vp-section">
         <div className="vp-center-head" data-reveal>
+
+          <BigWord>Journey</BigWord>
           <Eyebrow>My Journey</Eyebrow>
           <SplitTitle as="h2" className="vp-h2">How it <i>all</i> started</SplitTitle>
         </div>
@@ -106,6 +110,8 @@ const About: React.FC = () => {
 
       <section className="vp-section">
         <div className="vp-center-head" data-reveal>
+
+          <BigWord>Values</BigWord>
           <Eyebrow>What I Believe</Eyebrow>
           <SplitTitle as="h2" className="vp-h2">Values behind <i>every</i> project</SplitTitle>
         </div>
@@ -122,6 +128,8 @@ const About: React.FC = () => {
 
       <section className="vp-section">
         <div className="vp-center-head" data-reveal>
+
+          <BigWord>Toolkit</BigWord>
           <Eyebrow>Toolkit</Eyebrow>
           <SplitTitle as="h2" className="vp-h2">Tools I <i>love</i> working with</SplitTitle>
         </div>

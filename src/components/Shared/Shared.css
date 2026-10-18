@@ -910,3 +910,115 @@
   .vp-depth, .vp-depth-text { translate: none !important; }
   .vp-hero-glow { display: none; }
 }
+
+/* ---------- Real project image covers ---------- */
+.vp-cover-photo {
+  background: var(--c2);
+}
+
+.vp-cover-photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.vp-hover:hover .vp-cover-photo img {
+  transform: scale(1.06);
+}
+
+/* ---------- Hero with page artwork: two columns ---------- */
+.vp-hero.has-art {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 3.5rem);
+  text-align: left;
+  padding: clamp(3rem, 6vw, 5rem) clamp(1.5rem, 5vw, 4.5rem);
+}
+
+.vp-hero.has-art .vp-eyebrow {
+  justify-content: flex-start;
+}
+
+.vp-hero.has-art .vp-hero-title,
+.vp-hero.has-art .vp-hero-desc {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.vp-hero.has-art .vp-hero-title {
+  font-size: clamp(2rem, 3.5vw, 3.1rem);
+}
+
+.vp-hero-art {
+  display: grid;
+  place-items: center;
+  min-height: 300px;
+}
+
+@media (max-width: 900px) {
+  .vp-hero.has-art {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .vp-hero.has-art .vp-eyebrow {
+    justify-content: center;
+  }
+
+  .vp-hero.has-art .vp-hero-desc {
+    margin: 0 auto;
+  }
+
+  .vp-hero-art {
+    min-height: 0;
+    margin-top: 1rem;
+  }
+}
+
+/* ---------- Oversized outlined words behind section headings ---------- */
+.vp-center-head,
+.vp-section-head,
+.sc-stack-head,
+.sc-bento-head,
+.sc-index-head {
+  position: relative;
+  isolation: isolate;
+}
+
+.vp-bigword {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: -1;
+  transform: translate(-50%, -58%);
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(4.5rem, 15vw, 12rem);
+  font-weight: 700;
+  font-style: italic;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(69, 33, 43, 0.08);
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Left-aligned heads keep the word anchored to the left */
+.vp-section-head .vp-bigword,
+.sc-bento-head .vp-bigword,
+.sc-index-head .vp-bigword {
+  left: -0.05em;
+  transform: translate(0, -58%);
+}
+
+@media (max-width: 600px) {
+  .vp-bigword {
+    -webkit-text-stroke-width: 1px;
+  }
+}

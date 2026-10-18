@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PageHero, CtaBand, ProjectCover, d } from '../components/Shared/Shared'
+import { CoverDeck } from '../components/HeroArt/HeroArt'
 import { PROJECTS } from '../data/content'
 import { useReveal, tiltHandlers } from '../hooks/useReveal'
 import { ProjectIndex } from '../components/Showcase/Showcase'
@@ -17,6 +18,7 @@ const Projects: React.FC = () => {
     <div className="vp-page">
       <PageHero
         crumb="Projects"
+        art={<CoverDeck />}
         eyebrow="Selected Work"
         title={<>Projects crafted with <i>purpose</i></>}
         description="A look at brands, websites and apps I've helped bring to life. Each one started with a conversation and ended with an identity the client is proud of."
@@ -47,7 +49,7 @@ const Projects: React.FC = () => {
             style={d(i % 2)}
             {...tiltHandlers}
           >
-            <ProjectCover reveal kind={p.cover} mark={p.mark} palette={p.palette} label={`${p.client} cover`} />
+            <ProjectCover reveal image={p.coverImage} kind={p.cover} mark={p.mark} palette={p.palette} label={`${p.client} cover`} />
             <div className="vp-project-meta">
               <div>
                 <span className="vp-project-cat">{p.category} · {p.year}</span>

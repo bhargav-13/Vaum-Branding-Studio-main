@@ -9,7 +9,7 @@ interface LayoutProps {
   children: React.ReactNode
 }
 
-const KNOWN_ROOTS = ['', 'services', 'about', 'projects', 'blogs', 'testimonials', 'contact']
+const KNOWN_ROOTS = ['', 'services', 'about', 'projects', 'blogs', 'testimonials', 'contact', 'start']
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { pathname, hash } = useLocation()

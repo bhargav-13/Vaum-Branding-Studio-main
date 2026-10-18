@@ -52,6 +52,8 @@ interface PageHeroProps {
   title: React.ReactNode
   description: string
   crumb: string
+  /** Page-specific illustration shown beside the title */
+  art?: React.ReactNode
 }
 
 /** Pointer position inside the hero drives the glow and the depth of the floating shapes. */
@@ -67,22 +69,29 @@ const heroPointerLeave = (e: React.MouseEvent<HTMLElement>) => {
   e.currentTarget.style.setProperty('--hy', '0.5')
 }
 
-export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description, crumb }) => (
-  <section className="vp-hero" onMouseMove={heroPointer} onMouseLeave={heroPointerLeave}>
+export const PageHero: React.FC<PageHeroProps> = ({ eyebrow, title, description, crumb, art }) => (
+  <section className={`vp-hero${art ? ' has-art' : ''}`} onMouseMove={heroPointer} onMouseLeave={heroPointerLeave}>
     <span className="vp-hero-glow" aria-hidden="true" />
     <span className="vp-hero-blob vp-hero-blob-1 vp-depth" style={{ '--depth': -30 } as CSSVars} aria-hidden="true" />
     <span className="vp-hero-blob vp-hero-blob-2 vp-depth" style={{ '--depth': 45 } as CSSVars} aria-hidden="true" />
     <img className="vp-hero-star vp-hero-star-1 vp-depth" style={{ '--depth': 60 } as CSSVars} src="/octicon_north-star-24.svg" alt="" aria-hidden="true" />
     <img className="vp-hero-star vp-hero-star-2 vp-depth" style={{ '--depth': -45 } as CSSVars} src="/octicon_north-star-24.svg" alt="" aria-hidden="true" />
 
-    <nav className="vp-crumb vp-load" style={d(0)} aria-label="Breadcrumb">
-      <Link to="/">Home</Link>
-      <span aria-hidden="true">/</span>
-      <span>{crumb}</span>
-    </nav>
-    <Eyebrow className="vp-load" style={d(1)}>{eyebrow}</Eyebrow>
-    <SplitTitle className="vp-hero-title vp-depth-text">{title}</SplitTitle>
-    <p className="vp-hero-desc vp-load" style={d(3)}>{description}</p>
+    <div className="vp-hero-copy">
+      <nav className="vp-crumb vp-load" style={d(0)} aria-label="Breadcrumb">
+        <Link to="/">Home</Link>
+        <span aria-hidden="true">/</span>
+        <span>{crumb}</span>
+      </nav>
+      <Eyebrow className="vp-load" style={d(1)}>{eyebrow}</Eyebrow>
+      <SplitTitle className="vp-hero-title vp-depth-text">{title}</SplitTitle>
+      <p className="vp-hero-desc vp-load" style={d(3)}>{description}</p>
+    </div>
+    {art && (
+      <div className="vp-hero-art vp-load" style={d(3)}>
+        {art}
+      </div>
+    )}
   </section>
 )
 
@@ -117,7 +126,7 @@ export const PillButton: React.FC<PillButtonProps> = ({ to, children, variant = 
 
 export const CtaBand: React.FC = () => (
   <section className="vp-cta" data-reveal>
-    <Link to="/contact" className="vp-cta-ring" aria-label="Start a project">
+    <Link to="/start" className="vp-cta-ring" aria-label="Start a project">
       <svg className="vp-cta-ring-frame" viewBox="0 0 140 140" aria-hidden="true">
         <circle cx="70" cy="70" r="67" className="vp-cta-ring-outline" />
         <circle cx="70" cy="70" r="38" className="vp-cta-ring-inner" />
@@ -143,7 +152,7 @@ export const CtaBand: React.FC = () => (
       </h2>
       <p>Tell me about your idea and I'll get back to you within 24 hours.</p>
     </div>
-    <PillButton to="/contact">Start a Project</PillButton>
+    <PillButton to="/start">Start a Project</PillButton>
   </section>
 )
 
@@ -154,12 +163,18 @@ interface ProjectCoverProps {
   label: string
   /** Wipe the artwork open when it scrolls into view */
   reveal?: boolean
+  /** Real project image; when set it replaces the drawn artwork */
+  image?: string
 }
 
 /** Illustrated cover art for a project, drawn with CSS so no images are required. */
-export const ProjectCover: React.FC<ProjectCoverProps> = ({ kind, mark, palette, label, reveal }) => {
+export const ProjectCover: React.FC<ProjectCoverProps> = ({ kind, mark, palette, label, reveal, image }) => {
   const style: CSSVars = { '--c1': palette[0], '--c2': palette[1] }
-  const cover = (
+  const cover = image ? (
+    <div className="vp-cover vp-cover-photo" style={style}>
+      <img src={image} alt={label} loading="lazy" decoding="async" />
+    </div>
+  ) : (
     <div
       className={`vp-cover vp-cover-${kind}`}
       style={style}
@@ -214,3 +229,10 @@ export const ProjectCover: React.FC<ProjectCoverProps> = ({ kind, mark, palette,
   // The wrapper is what gets observed: a fully clipped element never reports as visible
   return reveal ? <div className="vp-cover-wrap" data-reveal="mask">{cover}</div> : cover
 }
+
+/** Oversized outlined word that sits behind a section heading and drifts with scroll */
+export const BigWord: React.FC<{ children: string }> = ({ children }) => (
+  <span className="vp-bigword" aria-hidden="true" data-parallax="0.12">
+    {children}
+  </span>
+)

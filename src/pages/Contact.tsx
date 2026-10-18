@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react'
-import { PageHero, Eyebrow, SplitTitle, d } from '../components/Shared/Shared'
+import { BigWord, PageHero, Eyebrow, PillButton, SplitTitle, d } from '../components/Shared/Shared'
+import { HelloCycle } from '../components/HeroArt/HeroArt'
 import { FAQS } from '../data/content'
 import { useReveal } from '../hooks/useReveal'
 import { burst } from '../components/SiteEffects/SiteEffects'
@@ -85,10 +86,18 @@ ${form.message}`
     <div className="vp-page">
       <PageHero
         crumb="Contact"
+        art={<HelloCycle />}
         eyebrow="Get In Touch"
         title={<>Let's talk about your <i>next project</i></>}
         description="Whether you need branding, a website or digital design, I'd love to hear about it. Share a few details and I'll reply within 24 hours."
       />
+
+      <div className="vp-guided" data-reveal>
+        <p>
+          <b>Prefer a guided brief?</b> Answer 4 quick questions and send everything in one go.
+        </p>
+        <PillButton to="/start">Start a Project</PillButton>
+      </div>
 
       <div className="vp-channels">
         {CHANNELS.map((c, i) => (
@@ -185,6 +194,8 @@ ${form.message}`
 
       <section className="vp-section">
         <div className="vp-center-head" data-reveal>
+
+          <BigWord>FAQ</BigWord>
           <Eyebrow>FAQ</Eyebrow>
           <SplitTitle as="h2" className="vp-h2">Questions, <i>answered</i></SplitTitle>
         </div>

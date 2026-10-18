@@ -540,7 +540,7 @@ ${formData.message}`
                     <img src="/play (1).gif" alt="Play" />
                   </div>
                 </button>
-                <button className="btn-hire" onClick={() => navigate('/contact')}>
+                <button className="btn-hire" onClick={() => navigate('/start')}>
                   Hire Me
                 </button>
               </div>
@@ -599,6 +599,9 @@ ${formData.message}`
           </div>
         </div>
       </section>
+
+      {/* The work comes first: pinned horizontal project gallery */}
+      <WorkGallery />
 
       {/* Services Cards Section */}
       <section id="services-section" className="services-cards-section scroll-animate">
@@ -799,8 +802,7 @@ ${formData.message}`
         </div>
       </section>
 
-      {/* Pinned horizontal gallery, stacking process and bento */}
-      <WorkGallery />
+      {/* Stacking process and bento */}
       <ProcessStack />
       <BentoGrid />
 

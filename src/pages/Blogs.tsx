@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { PageHero, CtaBand, d } from '../components/Shared/Shared'
+import { TypeSpecimen } from '../components/HeroArt/HeroArt'
 import { BLOGS } from '../data/content'
 import { useReveal } from '../hooks/useReveal'
 import './Pages.css'
@@ -22,6 +23,7 @@ const Blogs: React.FC = () => {
     <div className="vp-page">
       <PageHero
         crumb="Blogs"
+        art={<TypeSpecimen />}
         eyebrow="Journal"
         title={<>Ideas, tips &amp; <i>design</i> stories</>}
         description="Notes on branding, UI/UX and the creative process — written to help founders and fellow designers make better design decisions."

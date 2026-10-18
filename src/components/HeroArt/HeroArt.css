@@ -1,0 +1,433 @@
+/* ==========================================================================
+   Page header artworks (ha- prefix)
+   ========================================================================== */
+.ha-wheel, .ha-arch, .ha-deck, .ha-type, .ha-quotes, .ha-hello {
+  --ha-maroon: #45212B;
+  --ha-cream: #EDE8D0;
+  --ha-gold: #E5DBAB;
+  --ha-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --ha-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  color: var(--ha-maroon);
+}
+
+/* ---------- Services wheel ---------- */
+.ha-wheel {
+  --ha-size: min(340px, 80vw);
+  width: var(--ha-size);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.ha-wheel > * { grid-area: 1 / 1; }
+
+.ha-wheel-ring {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(69, 33, 43, 0.35);
+  animation: haSpin 40s linear infinite;
+}
+
+.ha-wheel:hover .ha-wheel-ring,
+.ha-wheel:hover .ha-wheel-ring b { animation-play-state: paused; }
+
+.ha-wheel-ring span {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: rotate(var(--a)) translateY(calc(var(--ha-size) / -2)) rotate(calc(var(--a) * -1));
+}
+
+.ha-wheel-ring b {
+  display: block;
+  translate: -50% -50%;
+  padding: 0.45rem 0.95rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid var(--ha-maroon);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(69, 33, 43, 0.12);
+  animation: haSpin 40s linear infinite reverse;
+  transition: background 0.3s, color 0.3s;
+}
+
+.ha-wheel-ring span:nth-child(odd) b { background: var(--ha-cream); }
+.ha-wheel-ring b:hover { background: var(--ha-maroon); color: var(--ha-cream); }
+
+.ha-wheel-inner {
+  width: 62%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 1.5px solid rgba(69, 33, 43, 0.15);
+  background: radial-gradient(circle, rgba(237, 232, 208, 0.7), transparent 70%);
+}
+
+.ha-wheel-core {
+  width: 34%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--ha-maroon);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 0 0 10px rgba(69, 33, 43, 0.08), 0 20px 40px rgba(69, 33, 43, 0.25);
+}
+
+.ha-wheel-core i {
+  width: 45%;
+  aspect-ratio: 1;
+  background: var(--ha-cream);
+  -webkit-mask: url('/octicon_north-star-24.svg') center / contain no-repeat;
+  mask: url('/octicon_north-star-24.svg') center / contain no-repeat;
+  animation: haSpin 12s linear infinite reverse;
+}
+
+@keyframes haSpin { to { transform: rotate(360deg); } }
+
+/* ---------- About arch portrait ---------- */
+.ha-arch {
+  width: min(320px, 74vw);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+}
+
+.ha-arch > * { grid-area: 1 / 1; }
+
+.ha-arch-frame {
+  width: 66%;
+  height: 84%;
+  border-radius: 999px 999px 28px 28px;
+  background: var(--ha-maroon);
+  overflow: hidden;
+  border: 6px solid #fff;
+  box-shadow: 0 24px 50px rgba(69, 33, 43, 0.25);
+  display: grid;
+  place-items: end center;
+}
+
+.ha-arch-frame img {
+  width: 125%;
+  max-width: none;
+  margin-bottom: -8%;
+  transition: transform 1s var(--ha-ease);
+}
+
+.ha-arch:hover .ha-arch-frame img { transform: scale(1.06) translateY(-3%); }
+
+.ha-arch-ring {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  animation: haSpin 26s linear infinite;
+}
+
+.ha-arch-ring text {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  fill: var(--ha-maroon);
+}
+
+.ha-sticker {
+  place-self: start end;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: var(--ha-gold);
+  border: 2px solid var(--ha-maroon);
+  rotate: 10deg;
+  animation: haBob 4s ease-in-out infinite;
+}
+
+.ha-sticker-2 {
+  place-self: end start;
+  background: #fff;
+  rotate: -8deg;
+  animation-delay: 1.4s;
+}
+
+@keyframes haBob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* ---------- Projects cover deck ---------- */
+.ha-deck {
+  width: min(380px, 84vw);
+  aspect-ratio: 5 / 4;
+}
+
+.ha-deck-card {
+  position: absolute;
+  inset: 8% 10%;
+  border-radius: 22px;
+  background: #fff;
+  padding: 8px 8px 38px;
+  box-shadow: 0 20px 45px rgba(69, 33, 43, 0.22);
+  transition: transform 0.8s var(--ha-spring);
+}
+
+.ha-deck-card .vp-cover { border-radius: 16px; aspect-ratio: 4 / 3; }
+
+.ha-deck-card > span {
+  position: absolute;
+  left: 14px;
+  bottom: 10px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.ha-deck-card.c0 { transform: rotate(-9deg) translate(-10%, 2%); z-index: 1; }
+.ha-deck-card.c1 { transform: rotate(5deg) translate(9%, -3%); z-index: 2; }
+.ha-deck-card.c2 { transform: rotate(-2deg) translate(0, 6%); z-index: 3; }
+
+.ha-deck:hover .ha-deck-card.c0 { transform: rotate(-16deg) translate(-32%, 0); }
+.ha-deck:hover .ha-deck-card.c1 { transform: rotate(14deg) translate(30%, -6%); }
+.ha-deck:hover .ha-deck-card.c2 { transform: rotate(0) translate(0, 0) scale(1.05); }
+
+/* ---------- Blogs type specimen ---------- */
+.ha-type {
+  width: min(360px, 84vw);
+  padding: 1.4rem 1.5rem;
+  border-radius: 26px;
+  background: #fff;
+  border: 2px solid var(--ha-maroon);
+  box-shadow: 14px 14px 0 var(--ha-gold);
+  rotate: -2deg;
+  transition: rotate 0.6s var(--ha-spring), box-shadow 0.6s var(--ha-ease);
+}
+
+.ha-type:hover {
+  rotate: 0deg;
+  box-shadow: 6px 6px 0 var(--ha-gold);
+}
+
+.ha-type-head {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #8a6f62;
+}
+
+.ha-type-aa {
+  font-size: clamp(5rem, 14vw, 7.5rem);
+  line-height: 1;
+  font-weight: 500;
+  font-style: italic;
+  margin: 0.4rem 0 0.6rem;
+  background: linear-gradient(120deg, var(--ha-maroon) 40%, #B59A4E 50%, var(--ha-maroon) 60%) 0 0 / 300% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: haShimmer 4s ease-in-out infinite;
+}
+
+@keyframes haShimmer {
+  0%, 100% { background-position: 100% 0; }
+  50% { background-position: 0 0; }
+}
+
+.ha-type-weights {
+  display: flex;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+  font-size: 0.85rem;
+}
+
+.ha-type-weights span {
+  position: relative;
+}
+
+.ha-type-weights span::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -3px;
+  height: 2px;
+  background: var(--ha-maroon);
+  transform: scaleX(0);
+  transform-origin: left;
+  animation: haWeight 6s ease-in-out infinite;
+  animation-delay: calc(var(--i) * 1.5s);
+}
+
+@keyframes haWeight {
+  0%, 30%, 100% { transform: scaleX(0); }
+  8%, 22% { transform: scaleX(1); }
+}
+
+.ha-type-line {
+  margin-top: 1rem;
+  padding-top: 0.8rem;
+  border-top: 1px dashed rgba(69, 33, 43, 0.2);
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.ha-type-line i {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 3px;
+  vertical-align: -0.15em;
+  background: var(--ha-maroon);
+  animation: haBlink 1s steps(1) infinite;
+}
+
+@keyframes haBlink { 50% { opacity: 0; } }
+
+.ha-type-glyphs {
+  margin-top: 0.6rem;
+  letter-spacing: 0.35em;
+  color: #8a6f62;
+  font-size: 0.9rem;
+}
+
+/* ---------- Testimonials quote bubbles ---------- */
+.ha-quotes {
+  width: min(380px, 86vw);
+  height: 340px;
+}
+
+.ha-bubble {
+  position: absolute;
+  width: 78%;
+  padding: 1rem 1.1rem;
+  border-radius: 20px 20px 20px 6px;
+  background: #fff;
+  border: 1.5px solid rgba(69, 33, 43, 0.15);
+  box-shadow: 0 16px 36px rgba(69, 33, 43, 0.14);
+  animation: haBubbleIn 0.8s var(--ha-spring) both, haBob 6s ease-in-out infinite;
+  transition: scale 0.5s var(--ha-spring);
+}
+
+.ha-bubble:hover { scale: 1.04; z-index: 5; }
+
+.ha-bubble.b0 { left: 0; top: 0; animation-delay: calc(var(--vp-enter, 0.5s) + 0.2s), 1s; }
+.ha-bubble.b1 { right: 0; top: 34%; background: var(--ha-maroon); color: var(--ha-cream); border-radius: 20px 20px 6px 20px; animation-delay: calc(var(--vp-enter, 0.5s) + 0.45s), 2s; }
+.ha-bubble.b2 { left: 6%; bottom: 0; background: var(--ha-cream); animation-delay: calc(var(--vp-enter, 0.5s) + 0.7s), 3s; }
+
+@keyframes haBubbleIn {
+  from { opacity: 0; transform: translateY(30px) scale(0.85); }
+}
+
+.ha-bubble-stars { color: #C9A227; font-size: 0.75rem; letter-spacing: 2px; }
+
+.ha-bubble p {
+  font-size: 0.86rem;
+  line-height: 1.45;
+  margin: 0.3rem 0 0.6rem;
+}
+
+.ha-bubble-who {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.ha-bubble-who span {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.65rem;
+  background: var(--ha-gold);
+  color: var(--ha-maroon);
+}
+
+/* ---------- Contact hello ---------- */
+.ha-hello {
+  width: min(360px, 84vw);
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.4rem;
+}
+
+.ha-hello-bubble {
+  position: relative;
+  min-width: 260px;
+  padding: 2.2rem 2.5rem;
+  border-radius: 40px 40px 40px 10px;
+  background: var(--ha-maroon);
+  color: var(--ha-cream);
+  text-align: center;
+  overflow: hidden;
+  box-shadow: 0 24px 50px rgba(69, 33, 43, 0.3);
+}
+
+.ha-hello-word {
+  display: inline-block;
+  font-size: clamp(2.4rem, 7vw, 3.4rem);
+  font-weight: 500;
+  font-style: italic;
+  animation: haWord 0.7s var(--ha-ease) both;
+}
+
+@keyframes haWord {
+  from { opacity: 0; transform: translateY(70%) rotate(6deg); filter: blur(4px); }
+}
+
+.ha-hello-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  background: #fff;
+  border: 1.5px solid rgba(69, 33, 43, 0.15);
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.ha-hello-status i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #4fbf6f;
+  animation: scLive 1.8s ease-out infinite;
+}
+
+.ha-hello-dot {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--ha-gold);
+  animation: haBob 5s ease-in-out infinite;
+}
+
+.ha-hello-dot.d1 { width: 22px; height: 22px; top: 14%; right: 8%; }
+.ha-hello-dot.d2 { width: 12px; height: 12px; bottom: 22%; left: 6%; background: var(--ha-maroon); animation-delay: 1.5s; }
+
+@keyframes scLive {
+  0% { box-shadow: 0 0 0 0 rgba(79, 191, 111, 0.6); }
+  100% { box-shadow: 0 0 0 10px rgba(79, 191, 111, 0); }
+}
+
+/* Leave room for the labels that ride on the rim */
+@media (max-width: 600px) {
+  .ha-wheel { --ha-size: 60vw; margin: 2.5rem auto; }
+  .ha-wheel-ring b { font-size: 0.7rem; padding: 0.35rem 0.7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ha-wheel-ring, .ha-wheel-ring b, .ha-wheel-core i, .ha-arch-ring, .ha-sticker, .ha-type-aa,
+  .ha-type-weights span::after, .ha-type-line i, .ha-bubble, .ha-hello-word, .ha-hello-dot {
+    animation: none !important;
+  }
+}
