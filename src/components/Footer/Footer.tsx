@@ -41,8 +41,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer className="footer scroll-animate">
-      {/* Content drifts up from "beneath" the page as the footer scrolls in */}
-      <div className="footer-wrap" data-parallax="0.3" data-parallax-mode="reveal">
+      <div className="footer-wrap">
         {/* Heading */}
         <h2 className="footer-heading animate-child">Let's <span className="accent">Connect</span> there</h2>
 
